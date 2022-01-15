@@ -1,14 +1,9 @@
 # LiftHouse (WIP)
-A personal gym progress tracking react-native mobile application (mostly Android)
+A personal gym progress tracking react-native mobile application
 
 # Local Setup
 ## Prerequisite
 * Node.js
-* Java SE
-* Android Studio
-  * Android SDK
-  * Android SDK Platform
-  * Android Virtual Device
 Follow [React Native CLI Quickstart](https://reactnative.dev/docs/environment-setup) guide for Android: 
 You could also try running this on iOS but this app was developed mainly for Android
 
