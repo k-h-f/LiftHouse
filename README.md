@@ -4,8 +4,7 @@ A personal gym progress tracking react-native mobile application
 # Local Setup
 ## Prerequisite
 * Node.js
-Follow [React Native CLI Quickstart](https://reactnative.dev/docs/environment-setup) guide for Android: 
-You could also try running this on iOS but this app was developed mainly for Android
+Follow [React Native CLI Quickstart](https://reactnative.dev/docs/environment-setup) guide
 
 ## Run App
 1. Go to project root and install npm packages `npm install`
