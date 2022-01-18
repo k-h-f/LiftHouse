@@ -20,7 +20,7 @@ const Pages: ComponentDefinition[] = [
 const App = () => {
   return (
     <NavigationContainer theme={HouseTheme}>
-      <StatusBar animated={true} backgroundColor={colors.primary} />
+      <StatusBar backgroundColor={colors.primary} />
       <TabNavigation components={Pages} initialRouteName="Home" />
     </NavigationContainer>
   );
