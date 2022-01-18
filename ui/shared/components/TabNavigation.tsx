@@ -40,9 +40,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
           name={component.name}
           component={component.reactComponent}
           options={{
+            tabBarTestID: `${component.name}_tab`,
             tabBarLabel: component.name,
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
+                testID={`${component.name}_icon`}
                 name={component.icon ?? ''}
                 color={focused ? colors.highlight : colors.unfocused}
                 size={sizes.iconSize}
