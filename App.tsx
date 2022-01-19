@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
 import Home from './ui/pages/Home';
 import HouseTheme, { colors } from './ui/themeConfig';
@@ -19,10 +20,12 @@ const Pages: ComponentDefinition[] = [
 
 const App = () => {
   return (
-    <NavigationContainer theme={HouseTheme}>
-      <StatusBar backgroundColor={colors.primary} />
-      <TabNavigation components={Pages} initialRouteName="Home" />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer theme={HouseTheme}>
+        <StatusBar backgroundColor={colors.primary} />
+        <TabNavigation components={Pages} initialRouteName="Home" />
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 
