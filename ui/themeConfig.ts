@@ -6,6 +6,8 @@ export const colors = {
   unfocused: '#A1A1A1',
   background: '#051E3E',
   textPrimary: '#FFFFFF',
+  card: '#251E3E',
+  popup: '#242526',
 };
 
 export const sizes = {

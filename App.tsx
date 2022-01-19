@@ -7,6 +7,7 @@ import TabNavigation, {
   ComponentDefinition,
 } from './ui/shared/components/TabNavigation';
 import { StatusBar } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 
 //Remove this after implemented the three main pages of the app
 //This is just needed to render/test the bottom navigation bar
@@ -23,7 +24,9 @@ const App = () => {
     <PaperProvider>
       <NavigationContainer theme={HouseTheme}>
         <StatusBar backgroundColor={colors.primary} />
-        <TabNavigation components={Pages} initialRouteName="Home" />
+        <MenuProvider>
+          <TabNavigation components={Pages} initialRouteName="Home" />
+        </MenuProvider>
       </NavigationContainer>
     </PaperProvider>
   );

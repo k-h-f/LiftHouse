@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 3,
   },
+
+  routines_wrapper: {
+    marginTop: 16,
+  },
 });
 
 export default styles;
