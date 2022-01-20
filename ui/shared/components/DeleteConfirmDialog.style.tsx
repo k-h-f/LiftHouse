@@ -3,19 +3,7 @@ import { colors } from '../../themeConfig';
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: colors.card,
-  },
-
-  title_wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-
-  title: {
-    flex: 1,
-    color: colors.textPrimary,
-    fontSize: 14,
-    fontWeight: 'bold',
+    backgroundColor: colors.popup,
   },
 
   paragraph: {

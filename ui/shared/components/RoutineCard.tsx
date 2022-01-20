@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Card, Title, Paragraph } from 'react-native-paper';
-import styles, { optionsStyles } from './RoutineCard.style';
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
+import styles from './RoutineCard.style';
+
 import { View } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from '../../themeConfig';
+import DotsVerticalMenu from './DotsVerticalMenu';
+import DeleteConfirmDialog from './DeleteConfirmDialog';
 
 interface RoutineCardProps {
   title: string;
@@ -18,34 +13,35 @@ interface RoutineCardProps {
 }
 
 const RoutineCard: React.FC<RoutineCardProps> = ({ title, routines }) => {
+  const [visible, setVisible] = useState(false);
+
+  const onSelected = () => {
+    setVisible(true);
+  };
+
+  const onConfirm = () => {};
+
   return (
-    <Card style={styles.wrapper}>
-      <Card.Content>
-        <View style={styles.title_wrapper}>
-          <Title style={styles.title}>{title}</Title>
-          <Menu>
-            <MenuTrigger>
-              <MaterialCommunityIcons
-                style={styles.three_dots}
-                name={'dots-vertical'}
-                color={colors.textPrimary}
-                size={16}
-              />
-            </MenuTrigger>
-            <MenuOptions>
-              <MenuOption
-                customStyles={optionsStyles}
-                onSelect={() => console.log('clicked save')}
-                text="Delete"
-              />
-            </MenuOptions>
-          </Menu>
-        </View>
-        {routines.map(routine => (
-          <Paragraph style={styles.paragraph}>{routine}</Paragraph>
-        ))}
-      </Card.Content>
-    </Card>
+    <>
+      <Card style={styles.wrapper}>
+        <Card.Content>
+          <View style={styles.title_wrapper}>
+            <Title style={styles.title}>{title}</Title>
+            <DotsVerticalMenu options={['Delete']} onSelected={onSelected} />
+          </View>
+          {routines.map(routine => (
+            <Paragraph key={routine} style={styles.paragraph}>
+              {routine}
+            </Paragraph>
+          ))}
+        </Card.Content>
+      </Card>
+      <DeleteConfirmDialog
+        visible={visible}
+        setVisible={setVisible}
+        onConfirm={onConfirm}
+      />
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import GlobalText from '../shared/components/GlobalText';
+import RoutineCard from '../shared/components/RoutineCard';
 import PageStyle from '../shared/stylesheets/pages.style';
 import styles from './Home.style';
-import RoutineCard from '../shared/components/RoutineCard';
 
 const Home: React.FC = () => {
   return (
