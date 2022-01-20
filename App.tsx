@@ -1,11 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
-import Home from './ui/pages/Home';
-import HouseTheme, { colors } from './ui/themeConfig';
+import Home from './frontend/pages/Home';
+import HouseTheme, { colors } from './frontend/themeConfig';
 import TabNavigation, {
   ComponentDefinition,
-} from './ui/shared/components/TabNavigation';
+} from './frontend/shared/components/TabNavigation';
 import { StatusBar } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 

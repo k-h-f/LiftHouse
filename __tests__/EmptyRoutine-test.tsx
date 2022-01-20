@@ -2,7 +2,7 @@ import 'react-native';
 import React from 'react';
 
 import { render, within } from '@testing-library/react-native';
-import EmptyRoutine from '../ui/pages/components/EmptyRoutine';
+import EmptyRoutine from '../frontend/pages/components/EmptyRoutine';
 
 describe('<EmptyRoutine />', () => {
   it('should render the correct message', () => {

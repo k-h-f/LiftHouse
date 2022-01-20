@@ -2,7 +2,7 @@ import 'react-native';
 import React from 'react';
 
 import { render, within, fireEvent } from '@testing-library/react-native';
-import DeleteConfirmDialog from '../ui/shared/components/DeleteConfirmDialog';
+import DeleteConfirmDialog from '../frontend/shared/components/DeleteConfirmDialog';
 import { Provider } from 'react-native-paper';
 
 const setVisible = jest.fn();
