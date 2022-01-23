@@ -1,5 +1,13 @@
-import { openDatabase, SQLiteDatabase } from 'react-native-sqlite-storage';
+import {
+  enablePromise,
+  openDatabase,
+  ResultSet,
+  SQLiteDatabase,
+} from 'react-native-sqlite-storage';
 import exercisesJson from './exercises.json';
+import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
+
+enablePromise(true);
 
 export const getDBConnection = () => {
   return openDatabase({ name: 'lifthouse-data.db', location: 'default' });
@@ -57,6 +65,17 @@ const createTables = async (db: SQLiteDatabase) => {
   db.executeSql(entries);
 };
 
+export const execute = (
+  queryAlias: string,
+  args?: string[],
+): Promise<[ResultSet]> => {
+  const handler = new LiftHouseDatabaseHandler(db);
+  const result = handler.handle(queryAlias, args);
+  return result;
+};
+
 const db = getDBConnection();
-createTables(db);
-populateExercises(db);
+db.then(connection => {
+  createTables(connection);
+  populateExercises(connection);
+});
