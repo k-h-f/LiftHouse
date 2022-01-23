@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { execute } from '../../backgend/db-service';
+import { execute } from '../../backend/db-service';
 
 const useDatabase = (query: string, args?: string[]) => {
   const [data, setData] = useState<string>();
