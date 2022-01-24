@@ -16,11 +16,12 @@ class LiftHouseDatabaseHandler {
   }
 
   handle(queryAlias: string) {
-    const queryMapper = {
-      ['getRoutines']: this.getRoutines(),
-    };
-
-    return queryMapper[queryAlias];
+    switch (queryAlias) {
+      case 'getRoutines':
+        return this.getRoutines();
+      default:
+        throw Error('Query alias not found');
+    }
   }
 }
 

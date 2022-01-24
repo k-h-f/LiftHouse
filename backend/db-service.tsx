@@ -66,12 +66,13 @@ const createTables = async (db: SQLiteDatabase) => {
 };
 
 export const execute = (queryAlias: string): Promise<[ResultSet]> => {
-  const handler = new LiftHouseDatabaseHandler(db);
   const result = handler.handle(queryAlias);
   return result;
 };
 
 const db = getDBConnection();
+const handler = new LiftHouseDatabaseHandler(db);
+
 db.then(connection => {
   createTables(connection);
   populateExercises(connection);
