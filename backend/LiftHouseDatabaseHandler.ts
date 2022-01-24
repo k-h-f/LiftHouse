@@ -15,7 +15,7 @@ class LiftHouseDatabaseHandler {
     return response;
   }
 
-  handle(queryAlias: string, args?: string[]) {
+  handle(queryAlias: string) {
     const queryMapper = {
       ['getRoutines']: this.getRoutines(),
     };

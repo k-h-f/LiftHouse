@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { execute } from '../../backend/db-service';
 
-const useDatabase = (query: string, args?: string[]) => {
+const useDatabase = (query: string) => {
   const [data, setData] = useState<string>();
 
-  const resultSet = execute(query, args);
+  const resultSet = execute(query);
   resultSet.then(result => setData(JSON.stringify(result[0])));
 
   return { data: data && JSON.parse(data) };

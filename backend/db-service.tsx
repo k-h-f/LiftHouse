@@ -65,12 +65,9 @@ const createTables = async (db: SQLiteDatabase) => {
   db.executeSql(entries);
 };
 
-export const execute = (
-  queryAlias: string,
-  args?: string[],
-): Promise<[ResultSet]> => {
+export const execute = (queryAlias: string): Promise<[ResultSet]> => {
   const handler = new LiftHouseDatabaseHandler(db);
-  const result = handler.handle(queryAlias, args);
+  const result = handler.handle(queryAlias);
   return result;
 };
 
