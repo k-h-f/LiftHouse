@@ -1,11 +1,11 @@
 import {
   enablePromise,
   openDatabase,
-  ResultSet,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
 import exercisesJson from './exercises.json';
 import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
+import QueryAlias from './queryAlias';
 
 enablePromise(true);
 
@@ -55,7 +55,7 @@ const createTables = async (db: SQLiteDatabase) => {
   const routines =
     'CREATE TABLE IF NOT EXISTS routines (routineId INTEGER PRIMARY KEY, routineName TEXT NOT NULL);';
   const routineToExercises =
-    'CREATE TABLE IF NOT EXISTS routineToExercises (routineId INTEGER REFERENCES routines(routineId), exerciseId INTEGER REFERENCES exercises(exerciseId));';
+    'CREATE TABLE IF NOT EXISTS routineToExercises (routineId INTEGER REFERENCES routines(routineId), exerciseId INTEGER REFERENCES exercises(exerciseId), order INTEGER);';
   const entries =
     'CREATE TABLE IF NOT EXISTS entries (entryId INTEGER PRIMARY KEY, exerciseId INTEGER REFERENCES exercises(exerciseId), date TEXT NOT NULL, setnum INTEGER, reps INTEGER, weight INTEGER);';
 
@@ -65,7 +65,13 @@ const createTables = async (db: SQLiteDatabase) => {
   db.executeSql(entries);
 };
 
-export const execute = (queryAlias: string): Promise<[ResultSet]> => {
+/**
+ *
+ * @param queryAlias You can think of this has a function to call a specific query
+ * @returns Return a promise with any type since there are many different types of responses
+ *          This means you have to cast the response type wherever you call the useDatabase hook
+ */
+export const execute = (queryAlias: QueryAlias): Promise<any> => {
   const result = handler.handle(queryAlias);
   return result;
 };

@@ -1,13 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { execute } from '../../backend/db-service';
+import QueryAlias from '../../backend/queryAlias';
 
-const useDatabase = (query: string) => {
-  const [data, setData] = useState<string>();
+/**
+ *
+ * @param query You can think of this has a function to call a specific query
+ *              e.g. GET_ROUTINES is a alias to fetch all of the routines
+ *              for the user
+ */
+const useDatabase = (query: QueryAlias) => {
+  //Have to use the any type here since there are many different responses
+  const [data, setData] = useState<any>();
+  const [isCompleted, setCompleted] = useState<boolean>(false);
 
-  const resultSet = execute(query);
-  resultSet.then(result => setData(JSON.stringify(result[0])));
+  useEffect(() => {
+    setCompleted(false);
 
-  return { data: data && JSON.parse(data) };
+    const resultSet = execute(query);
+
+    resultSet.then(result => {
+      setData(result);
+      setCompleted(true);
+    });
+  }, [query]);
+
+  return { data, isCompleted };
 };
 
 export default useDatabase;
