@@ -29,7 +29,7 @@ const DotsVerticalMenu: React.FC<DotsVerticalMenuProps> = ({
         <MaterialCommunityIcons
           style={styles.three_dots}
           name={'dots-vertical'}
-          color={colors.textPrimary}
+          color={colors.white}
           size={16}
         />
       </MenuTrigger>

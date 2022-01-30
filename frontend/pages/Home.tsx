@@ -12,7 +12,9 @@ import PageStyle from '../shared/stylesheets/pages.style';
 import useDatabase from '../utils/useDatabase';
 import EmptyRoutine from './components/EmptyRoutine';
 import styles from './Home.style';
-import CreateRoutine from './CreateRoutine';
+import CreateRoutine from './CreateRoutines/CreateRoutine';
+import { colors, sizes } from '../themeConfig';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createStackNavigator();
 
@@ -24,8 +26,8 @@ const HomeView: React.FC = () => {
   return (
     <View style={PageStyle.wrapper}>
       <View style={styles.header_wrapper}>
-        <GlobalText style={styles.header}>Time to Grind 💪</GlobalText>
-        <GlobalText style={styles.caption}>MY ROUTINES</GlobalText>
+        <GlobalText isHeader={true}>Time to Grind 💪</GlobalText>
+        <GlobalText isCaption={true}>MY ROUTINES</GlobalText>
       </View>
       {!isCompleted && <ActivityIndicator />}
       <View style={styles.routines_wrapper}>
@@ -38,12 +40,29 @@ const HomeView: React.FC = () => {
 const Home: React.FC = () => (
   <Stack.Navigator
     screenOptions={{
-      headerShown: false,
       cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
     }}
   >
-    <Stack.Screen name="Home" component={HomeView} />
-    <Stack.Screen name="CreateRoutine" component={CreateRoutine} />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Home"
+      component={HomeView}
+    />
+    <Stack.Screen
+      options={{
+        title: '',
+        headerStyle: { backgroundColor: colors.primary },
+        headerBackImage: () => (
+          <MaterialCommunityIcons
+            name={'close'}
+            size={sizes.iconSize}
+            color={colors.white}
+          />
+        ),
+      }}
+      name="CreateRoutine"
+      component={CreateRoutine}
+    />
   </Stack.Navigator>
 );
 

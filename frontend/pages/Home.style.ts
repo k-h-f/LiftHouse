@@ -7,16 +7,6 @@ const styles = StyleSheet.create({
     height: 60,
   },
 
-  header: {
-    fontSize: 24,
-  },
-
-  caption: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    letterSpacing: 3,
-  },
-
   routines_wrapper: {
     marginTop: 16,
   },
