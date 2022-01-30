@@ -14,7 +14,7 @@ export const colors = {
 
 export const sizes = {
   iconSize: 24,
-  largeIconSize: 32,
+  largeIconSize: 42,
 };
 
 export const fontSizes = {

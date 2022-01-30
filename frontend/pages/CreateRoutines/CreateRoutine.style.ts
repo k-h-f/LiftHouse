@@ -4,25 +4,29 @@ import { colors } from '../../themeConfig';
 const styles = StyleSheet.create({
   wrapper: {
     alignSelf: 'center',
-    width: '80%',
+    flex: 1,
+    width: '90%',
+    justifyContent: 'center',
+    paddingBottom: 128,
   },
 
   input_wrapper: {
     height: 72,
+    flexDirection: 'row',
   },
 
   text_input: {
+    flex: 1,
     marginTop: 28,
   },
 
   header: {
-    textAlign: 'center',
     color: colors.highlight,
     fontSize: 20,
   },
 
   icon: {
-    marginTop: 24,
+    marginTop: 20,
     color: colors.highlight,
     alignItems: 'flex-end',
   },

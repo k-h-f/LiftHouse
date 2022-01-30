@@ -1,11 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import GlobalText from '../../shared/components/GlobalText';
-import styles, { textInputTheme } from './CreateRoutine.style';
-import { Button, IconButton, TextInput } from 'react-native-paper';
+import styles from './CreateRoutine.style';
+import { IconButton } from 'react-native-paper';
 import { colors, sizes } from '../../themeConfig';
 import Input from '../../shared/components/Input';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const CreateRoutine: React.FC = () => {
   return (
@@ -13,9 +12,12 @@ const CreateRoutine: React.FC = () => {
       <GlobalText style={styles.header}>Routine Name</GlobalText>
       <View style={styles.input_wrapper}>
         <Input style={styles.text_input} />
-        <Button style={styles.icon} color={colors.highlight}>
-          CONTINUE
-        </Button>
+        <IconButton
+          style={styles.icon}
+          icon="arrow-right-drop-circle"
+          size={sizes.largeIconSize}
+          color={colors.highlight}
+        />
       </View>
     </View>
   );
