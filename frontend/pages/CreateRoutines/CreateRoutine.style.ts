@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '90%',
     justifyContent: 'center',
-    paddingBottom: 128,
+    paddingBottom: '50%',
   },
 
   input_wrapper: {
