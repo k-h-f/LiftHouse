@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../themeConfig';
+import { colors, spacing } from '../../themeConfig';
 
 const styles = StyleSheet.create({
   three_dots: {
-    marginTop: 4,
+    marginTop: spacing.medium,
   },
 });
 

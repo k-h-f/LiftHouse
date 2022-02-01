@@ -15,6 +15,7 @@ import styles from './Home.style';
 import CreateRoutine from './CreateRoutines/CreateRoutine';
 import { colors, sizes } from '../themeConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SelectExercises from './CreateRoutines/SelecExercises';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +41,8 @@ const HomeView: React.FC = () => {
 const Home: React.FC = () => (
   <Stack.Navigator
     screenOptions={{
-      cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+      title: '',
+      headerStyle: { backgroundColor: colors.primary },
     }}
   >
     <Stack.Screen
@@ -50,8 +52,7 @@ const Home: React.FC = () => (
     />
     <Stack.Screen
       options={{
-        title: '',
-        headerStyle: { backgroundColor: colors.primary },
+        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         headerBackImage: () => (
           <MaterialCommunityIcons
             name={'close'}
@@ -63,6 +64,7 @@ const Home: React.FC = () => (
       name="CreateRoutine"
       component={CreateRoutine}
     />
+    <Stack.Screen name="SelectExercises" component={SelectExercises} />
   </Stack.Navigator>
 );
 

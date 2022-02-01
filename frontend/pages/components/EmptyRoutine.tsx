@@ -10,7 +10,7 @@ const EmptyRoutine: React.FC = () => {
   const navigation = useNavigation();
 
   const createBtnOnPress = () => {
-    navigation.navigate({ name: 'CreateRoutine' });
+    navigation.navigate('CreateRoutine');
   };
 
   return (

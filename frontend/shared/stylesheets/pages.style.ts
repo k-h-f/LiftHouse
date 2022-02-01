@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { spacing } from '../../themeConfig';
 
 const PageStyle = StyleSheet.create({
   wrapper: {
-    padding: 16,
+    padding: spacing.standard,
   },
 });
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../themeConfig';
+import { colors, fontSizes } from '../../themeConfig';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     color: colors.textPrimary,
-    fontSize: 14,
+    fontSize: fontSizes.default,
     fontWeight: 'bold',
   },
 

@@ -1,12 +1,5 @@
-import { StyleSheet } from 'react-native';
 import { DarkTheme } from 'react-native-paper';
 import { colors } from '../../themeConfig';
-
-const styles = StyleSheet.create({
-  wrapper: {
-    justifyContent: 'center',
-  },
-});
 
 export const textInputTheme = {
   ...DarkTheme,
@@ -16,4 +9,10 @@ export const textInputTheme = {
   },
 };
 
-export default styles;
+export const errorHelperTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    colors: colors.error,
+  },
+};

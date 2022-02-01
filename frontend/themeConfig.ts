@@ -10,6 +10,15 @@ export const colors = {
   card: '#251E3E',
   popup: '#242526',
   input: '#2C2D2E',
+  error: 'EF5350',
+};
+
+export const spacing = {
+  small: 2,
+  medium: 4,
+  large: 8,
+  standard: 16,
+  largest: 32,
 };
 
 export const sizes = {
@@ -20,6 +29,7 @@ export const sizes = {
 export const fontSizes = {
   header: 24,
   caption: 10,
+  default: 14,
 };
 
 const HouseTheme = {

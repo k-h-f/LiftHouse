@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   },
 
   input_wrapper: {
-    height: 72,
     flexDirection: 'row',
   },
 
@@ -27,8 +26,6 @@ const styles = StyleSheet.create({
 
   icon: {
     marginTop: 20,
-    color: colors.highlight,
-    alignItems: 'flex-end',
   },
 });
 
