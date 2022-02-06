@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import GlobalText from '../../shared/components/GlobalText';
+import GlobalText from '../../../shared/components/GlobalText';
 import styles from './CreateRoutine.style';
 import { IconButton } from 'react-native-paper';
-import { colors, sizes } from '../../themeConfig';
-import Input, { HelperType } from '../../shared/components/Input';
+import { colors, sizes } from '../../../themeConfig';
+import Input, { HelperType } from '../../../shared/components/Input';
 
 const CreateRoutine: React.FC = () => {
   const navigation = useNavigation();

@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
-import Home from './frontend/pages/Home';
+import Home from './frontend/pages/Home/Home';
 import HouseTheme, { colors } from './frontend/themeConfig';
 import TabNavigation, {
   ComponentDefinition,

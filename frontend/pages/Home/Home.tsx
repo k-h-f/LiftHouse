@@ -4,18 +4,19 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
-import QueryAlias from '../../backend/queryAlias';
-import { Routine } from '../../backend/responseTypes.ts/getRoutines';
-import GlobalText from '../shared/components/GlobalText';
-import RoutineCard from '../shared/components/RoutineCard';
-import PageStyle from '../shared/stylesheets/pages.style';
-import useDatabase from '../utils/useDatabase';
-import EmptyRoutine from './components/EmptyRoutine';
+import QueryAlias from '../../../backend/queryAlias';
+import { Routine } from '../../../backend/responseTypes.ts/getRoutines';
+import GlobalText from '../../shared/components/GlobalText';
+import RoutineCard from '../../shared/components/RoutineCard';
+import PageStyle from '../../shared/stylesheets/pages.style';
+import useDatabase from '../../utils/useDatabase';
+import EmptyRoutine from '../components/EmptyRoutine';
 import styles from './Home.style';
-import CreateRoutine from './CreateRoutines/CreateRoutine';
-import { colors, sizes } from '../themeConfig';
+import { colors, sizes } from '../../themeConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import CreateRoutine from './CreateRoutines/CreateRoutine';
 import SelectExercises from './CreateRoutines/SelecExercises';
+import Exercises from '../Exercises/Exercises';
 
 const Stack = createStackNavigator();
 
@@ -27,8 +28,8 @@ const HomeView: React.FC = () => {
   return (
     <View style={PageStyle.wrapper}>
       <View style={styles.header_wrapper}>
-        <GlobalText isHeader={true}>Time to Grind 💪</GlobalText>
-        <GlobalText isCaption={true}>MY ROUTINES</GlobalText>
+        <GlobalText isHeader>Time to Grind 💪</GlobalText>
+        <GlobalText isCaption>MY ROUTINES</GlobalText>
       </View>
       {!isCompleted && <ActivityIndicator />}
       <View style={styles.routines_wrapper}>
@@ -65,6 +66,7 @@ const Home: React.FC = () => (
       component={CreateRoutine}
     />
     <Stack.Screen name="SelectExercises" component={SelectExercises} />
+    <Stack.Screen name="Exercises" component={Exercises} />
   </Stack.Navigator>
 );
 

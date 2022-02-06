@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
     marginTop: spacing.large,
     flex: 1,
   },
+
+  exercise_header: {
+    marginTop: spacing.standard,
+  },
 });
 
 export default styles;

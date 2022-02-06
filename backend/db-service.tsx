@@ -6,6 +6,7 @@ import {
 import exercisesJson from './exercises.json';
 import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
 import QueryAlias from './queryAlias';
+import ExerciseTypes from './types';
 
 enablePromise(true);
 
@@ -13,26 +14,39 @@ export const getDBConnection = () => {
   return openDatabase({ name: 'lifthouse-data.db', location: 'default' });
 };
 
-const buildValuesFromJson = (exerciseType: string[]) => {
+const buildValuesFromJson = (
+  exerciseType: ExerciseTypes,
+  exercises: string[],
+) => {
   let values = '';
-  exerciseType.map(exercise => {
-    values = values.concat(`("${exercise}"),`);
+  exercises.map(exercise => {
+    values = values.concat(`("${exerciseType}", "${exercise}"),`);
   });
+  console.log('adads', values);
   return values.substring(0, values.length - 1);
 };
 
 const populateExercises = (db: SQLiteDatabase) => {
   const insertPullExercises =
-    'INSERT INTO exercises (exerciseName) VALUES ' +
-    buildValuesFromJson(exercisesJson.exercises.pull as string[]);
+    'INSERT INTO exercises (type, exerciseName) VALUES ' +
+    buildValuesFromJson(
+      ExerciseTypes.PULL,
+      exercisesJson.exercises.pull as string[],
+    );
 
   const insertPushExercises =
-    'INSERT INTO exercises (exerciseName) VALUES ' +
-    buildValuesFromJson(exercisesJson.exercises.push as string[]);
+    'INSERT INTO exercises (type, exerciseName) VALUES ' +
+    buildValuesFromJson(
+      ExerciseTypes.PUSH,
+      exercisesJson.exercises.push as string[],
+    );
 
   const insertLegExercises =
-    'INSERT INTO exercises (exerciseName) VALUES ' +
-    buildValuesFromJson(exercisesJson.exercises.legs as string[]);
+    'INSERT INTO exercises (type, exerciseName) VALUES ' +
+    buildValuesFromJson(
+      ExerciseTypes.LEGS,
+      exercisesJson.exercises.legs as string[],
+    );
 
   db.executeSql(insertPullExercises);
   db.executeSql(insertPushExercises);
@@ -51,11 +65,11 @@ const createTables = async (db: SQLiteDatabase) => {
   db.executeSql(dropExercises);
 
   const exercises =
-    'CREATE TABLE IF NOT EXISTS exercises (exerciseId INTEGER PRIMARY KEY, exerciseName TEXT NOT NULL);';
+    'CREATE TABLE IF NOT EXISTS exercises (exerciseId INTEGER PRIMARY KEY, type TEXT NOT NULL, exerciseName TEXT NOT NULL);';
   const routines =
     'CREATE TABLE IF NOT EXISTS routines (routineId INTEGER PRIMARY KEY, routineName TEXT NOT NULL);';
   const routineToExercises =
-    'CREATE TABLE IF NOT EXISTS routineToExercises (routineId INTEGER REFERENCES routines(routineId), exerciseId INTEGER REFERENCES exercises(exerciseId), order INTEGER);';
+    'CREATE TABLE IF NOT EXISTS routineToExercises (routineId INTEGER REFERENCES routines(routineId), exerciseId INTEGER REFERENCES exercises(exerciseId), sortingOrder INTEGER);';
   const entries =
     'CREATE TABLE IF NOT EXISTS entries (entryId INTEGER PRIMARY KEY, exerciseId INTEGER REFERENCES exercises(exerciseId), date TEXT NOT NULL, setnum INTEGER, reps INTEGER, weight INTEGER);';
 
