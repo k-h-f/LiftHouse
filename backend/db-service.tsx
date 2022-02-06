@@ -22,7 +22,7 @@ const buildValuesFromJson = (
   exercises.map(exercise => {
     values = values.concat(`("${exerciseType}", "${exercise}"),`);
   });
-  console.log('adads', values);
+
   return values.substring(0, values.length - 1);
 };
 

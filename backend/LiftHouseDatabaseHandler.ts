@@ -30,7 +30,7 @@ class LiftHouseDatabaseHandler {
                   } as Exercise,
                 ];
               }
-              console.log('$$$', data);
+
               resolve(data);
             },
             (tsx, error) => reject(error),
@@ -60,6 +60,7 @@ class LiftHouseDatabaseHandler {
                   } as Routine,
                 ];
               }
+
               resolve(data);
             },
             (tsx, error) => reject(error),

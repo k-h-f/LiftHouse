@@ -14,8 +14,6 @@ import LatPullDownIcon from '../../shared/icons/lat_pulldown.svg';
 const Execises: React.FC = () => {
   const { data, isCompleted } = useDatabase(QueryAlias.GET_EXERCISES);
 
-  console.log(data);
-
   return (
     <View style={PageStyle.wrapper}>
       <TextInput
