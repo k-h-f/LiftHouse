@@ -9,7 +9,7 @@ import useDatabase from '../../utils/useDatabase';
 import styles from '../components/EmptyRoutine.style';
 import ExerciseCard from './ExerciseCard';
 import searchBarTheme from './Exercises.style';
-import LatPullDownIcon from '../../shared/icons/lat_pulldown.svg';
+import BarbellRow from '../../shared/icons/barbell_row.svg';
 
 const Execises: React.FC = () => {
   const { data, isCompleted } = useDatabase(QueryAlias.GET_EXERCISES);
