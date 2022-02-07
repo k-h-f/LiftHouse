@@ -6,7 +6,7 @@ import {
 import exercisesJson from './exercises.json';
 import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
 import QueryAlias from './queryAlias';
-import ExerciseTypes from './types';
+import ExerciseType from './types';
 
 enablePromise(true);
 
@@ -15,7 +15,7 @@ export const getDBConnection = () => {
 };
 
 const buildValuesFromJson = (
-  exerciseType: ExerciseTypes,
+  exerciseType: ExerciseType,
   exercises: string[],
 ) => {
   let values = '';
@@ -30,21 +30,21 @@ const populateExercises = (db: SQLiteDatabase) => {
   const insertPullExercises =
     'INSERT INTO exercises (type, exerciseName) VALUES ' +
     buildValuesFromJson(
-      ExerciseTypes.PULL,
+      ExerciseType.PULL,
       exercisesJson.exercises.pull as string[],
     );
 
   const insertPushExercises =
     'INSERT INTO exercises (type, exerciseName) VALUES ' +
     buildValuesFromJson(
-      ExerciseTypes.PUSH,
+      ExerciseType.PUSH,
       exercisesJson.exercises.push as string[],
     );
 
   const insertLegExercises =
     'INSERT INTO exercises (type, exerciseName) VALUES ' +
     buildValuesFromJson(
-      ExerciseTypes.LEGS,
+      ExerciseType.LEGS,
       exercisesJson.exercises.legs as string[],
     );
 

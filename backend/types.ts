@@ -1,7 +1,7 @@
-enum ExerciseTypes {
+enum ExerciseType {
   PULL = 'PULL',
   PUSH = 'PUSH',
   LEGS = 'LEGS',
 }
 
-export default ExerciseTypes;
+export default ExerciseType;

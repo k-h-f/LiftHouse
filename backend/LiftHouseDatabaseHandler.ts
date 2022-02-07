@@ -1,6 +1,7 @@
 import { SQLiteDatabase } from 'react-native-sqlite-storage';
 import QueryAlias from './queryAlias';
-import { Exercise, Routine } from './responseTypes.ts/getRoutines';
+import { Exercise } from './responseTypes.ts/getExercises';
+import { Routine } from './responseTypes.ts/getRoutines';
 
 class LiftHouseDatabaseHandler {
   private db: Promise<SQLiteDatabase>;
