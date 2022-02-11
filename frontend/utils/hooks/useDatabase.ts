@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { execute } from '../../backend/db-service';
-import QueryAlias from '../../backend/queryAlias';
+import { useEffect, useState } from 'react';
+import { execute } from '../../../backend/db-service';
+import QueryAlias from '../../../backend/queryAlias';
 
 /**
  *

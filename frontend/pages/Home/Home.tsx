@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import {
   createStackNavigator,
@@ -7,9 +7,8 @@ import {
 import QueryAlias from '../../../backend/queryAlias';
 import { Routine } from '../../../backend/responseTypes.ts/getRoutines';
 import GlobalText from '../../shared/components/GlobalText';
-import RoutineCard from '../../shared/components/RoutineCard';
 import PageStyle from '../../shared/stylesheets/pages.style';
-import useDatabase from '../../utils/useDatabase';
+import useDatabase from '../../utils/hooks/useDatabase';
 import EmptyRoutine from '../components/EmptyRoutine';
 import styles from './Home.style';
 import { colors, sizes } from '../../themeConfig';
@@ -17,12 +16,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import CreateRoutine from './CreateRoutines/CreateRoutine';
 import SelectExercises from './CreateRoutines/SelecExercises';
 import Exercises from '../Exercises/Exercises';
+import { useIsFocused } from '@react-navigation/native';
+import useSelectedExercises from '../Exercises/hooks/useSelectedExercises';
 
 const Stack = createStackNavigator();
 
 const HomeView: React.FC = () => {
   const { data, isCompleted } = useDatabase(QueryAlias.GET_ROUTINES);
   const routines = data as Routine[];
+  const isFocused = useIsFocused();
+  const { resetSelectedExercises } = useSelectedExercises();
+
+  useEffect(() => {
+    resetSelectedExercises();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   const hasRoutines = isCompleted === true && routines.length !== 0;
   return (

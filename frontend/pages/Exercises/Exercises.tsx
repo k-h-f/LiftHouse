@@ -5,15 +5,21 @@ import QueryAlias from '../../../backend/queryAlias';
 import GlobalText from '../../shared/components/GlobalText';
 import PageStyle from '../../shared/stylesheets/pages.style';
 import { colors } from '../../themeConfig';
-import useDatabase from '../../utils/useDatabase';
+import useDatabase from '../../utils/hooks/useDatabase';
 import styles from '../components/EmptyRoutine.style';
 import ExerciseCard from './ExerciseCard';
 import searchBarTheme from './Exercises.style';
 import { Exercise } from '../../../backend/responseTypes.ts/getExercises';
 import ExerciseType from '../../../backend/types';
+import useSelectedExercises from './hooks/useSelectedExercises';
 
 const Execises: React.FC = () => {
   const { data, isCompleted } = useDatabase(QueryAlias.GET_EXERCISES);
+  const { onSelectExercise } = useSelectedExercises();
+
+  const onClick = (exercise: Exercise) => {
+    onSelectExercise(exercise);
+  };
 
   const getExercises = (values: Exercise[], exerciseType: ExerciseType) =>
     values
@@ -21,7 +27,8 @@ const Execises: React.FC = () => {
       .map((exercise: Exercise) => (
         <ExerciseCard
           key={exercise.exerciseName}
-          exerciseName={exercise.exerciseName}
+          exercise={exercise}
+          onClick={onClick}
         />
       ));
 
