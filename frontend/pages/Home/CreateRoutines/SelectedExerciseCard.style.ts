@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: colors.card_gray,
     borderRadius: 6,
+    flexDirection: 'row',
   },
 
   text: {

@@ -22,11 +22,13 @@ import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 interface SelectedExerciseCardProps
   extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
   exercise: Exercise;
+  enabled: boolean;
 }
 
 const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
   exercise,
   simultaneousHandlers,
+  enabled,
 }) => {
   const translateX = useSharedValue(0);
   const { width } = useWindowDimensions();
@@ -86,8 +88,15 @@ const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
       <PanGestureHandler
         simultaneousHandlers={simultaneousHandlers}
         onGestureEvent={panGesture}
+        enabled={enabled}
       >
         <Animated.View style={[styles.card, cardAnimationStyle]}>
+          {/* <MaterialCommunityIcons
+            style={{ display: enabled ? 'none' : 'flex' }}
+            name={'close'}
+            size={sizes.iconSize}
+            color={colors.white}
+          /> */}
           <Text style={styles.text}>{exercise.exerciseName}</Text>
         </Animated.View>
       </PanGestureHandler>
