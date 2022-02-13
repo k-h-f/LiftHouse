@@ -9,7 +9,7 @@ import useDatabase from '../../utils/hooks/useDatabase';
 import styles from '../components/EmptyRoutine.style';
 import ExerciseCard from './ExerciseCard';
 import searchBarTheme from './Exercises.style';
-import { Exercise } from '../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../backend/dtos/Exercise';
 import ExerciseType from '../../../backend/types';
 import useSelectedExercises from './hooks/useSelectedExercises';
 

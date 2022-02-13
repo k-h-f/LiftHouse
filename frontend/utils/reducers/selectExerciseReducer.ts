@@ -1,4 +1,4 @@
-import { Exercise } from '../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../backend/dtos/Exercise';
 import {
   ADD_SELECTED_EXERCISE,
   REMOVE_EXERCISE,

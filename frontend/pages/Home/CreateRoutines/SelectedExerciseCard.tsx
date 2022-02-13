@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Exercise } from '../../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../../backend/dtos/Exercise';
 import { useWindowDimensions, View } from 'react-native';
 import {
   PanGestureHandler,

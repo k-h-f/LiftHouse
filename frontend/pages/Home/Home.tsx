@@ -5,7 +5,7 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import QueryAlias from '../../../backend/queryAlias';
-import { Routine } from '../../../backend/responseTypes.ts/getRoutines';
+import { Routine } from '../../../backend/dtos/Routine';
 import GlobalText from '../../shared/components/GlobalText';
 import PageStyle from '../../shared/stylesheets/pages.style';
 import useDatabase from '../../utils/hooks/useDatabase';

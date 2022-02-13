@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Exercise } from '../../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../../backend/dtos/Exercise';
 import { RootState } from '../../../configureStore';
 import {
   addExercise,

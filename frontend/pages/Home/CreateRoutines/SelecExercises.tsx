@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
-import { Exercise } from '../../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../../backend/dtos/Exercise';
 import GlobalText from '../../../shared/components/GlobalText';
 import PageStyle from '../../../shared/stylesheets/pages.style';
 import { colors, sizes } from '../../../themeConfig';

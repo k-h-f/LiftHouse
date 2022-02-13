@@ -1,4 +1,4 @@
-import { Exercise } from '../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../backend/dtos/Exercise';
 
 export const ADD_SELECTED_EXERCISE = 'ADD_SELECTED_EXERCISE';
 export const REMOVE_EXERCISE = 'REMOVE_EXERCISE';

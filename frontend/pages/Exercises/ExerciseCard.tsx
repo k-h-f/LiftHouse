@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Exercise } from '../../../backend/responseTypes.ts/getExercises';
+import { Exercise } from '../../../backend/dtos/Exercise';
 import styles from './ExerciseCard.style';
 
 interface ExerciseCardProps {
