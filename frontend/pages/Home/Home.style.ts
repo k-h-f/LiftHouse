@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     height: 60,
   },
 
+  loading: {
+    height: '80%',
+  },
+
   routines_wrapper: {
     marginTop: spacing.standard,
   },

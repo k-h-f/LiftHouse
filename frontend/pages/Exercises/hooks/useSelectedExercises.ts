@@ -3,6 +3,7 @@ import { Exercise } from '../../../../backend/responseTypes.ts/getExercises';
 import { RootState } from '../../../configureStore';
 import {
   addExercise,
+  removeExercise,
   resetExercises,
 } from '../../../utils/actions/selectExerciseActions';
 
@@ -15,6 +16,8 @@ const useSelectedExercises = () => {
   return {
     selectedExercises: selectedExercises.exercises,
     onSelectExercise: (exercise: Exercise) => dispatch(addExercise(exercise)),
+    onRemoveExercise: (exercise: Exercise) =>
+      dispatch(removeExercise(exercise)),
     resetSelectedExercises: () => dispatch(resetExercises()),
   };
 };

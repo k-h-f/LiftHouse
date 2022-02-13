@@ -39,9 +39,14 @@ const HomeView: React.FC = () => {
         <GlobalText isHeader>Time to Grind 💪</GlobalText>
         <GlobalText isCaption>MY ROUTINES</GlobalText>
       </View>
-      {!isCompleted && <ActivityIndicator />}
       <View style={styles.routines_wrapper}>
-        {!hasRoutines && <EmptyRoutine />}
+        {!isCompleted && (
+          <ActivityIndicator
+            size={sizes.largeIconSize}
+            style={styles.loading}
+          />
+        )}
+        {!hasRoutines && isCompleted && <EmptyRoutine />}
       </View>
     </View>
   );

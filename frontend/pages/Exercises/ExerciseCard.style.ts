@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
 
   exercise_text: {
-    color: colors.white,
+    color: colors.textPrimary,
     textAlign: 'center',
     fontWeight: 'bold',
   },

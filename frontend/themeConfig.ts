@@ -8,9 +8,10 @@ export const colors = {
   textPrimary: '#FFFFFF',
   white: '#FFFFFF',
   card: '#251E3E',
+  card_gray: '#333333',
   popup: '#242526',
   input: '#2C2D2E',
-  error: 'EF5350',
+  error: '#EF5350',
 };
 
 export const spacing = {
