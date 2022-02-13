@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
@@ -22,6 +22,8 @@ const SelectExercises: React.FC = () => {
     navigation.navigate('Exercises');
   };
 
+  const scrollRef = useRef(null);
+
   return (
     <View style={PageStyle.wrapper}>
       <View style={styles.header}>
@@ -35,11 +37,12 @@ const SelectExercises: React.FC = () => {
           color={colors.highlight}
         />
       </View>
-      <ScrollView>
+      <ScrollView ref={scrollRef}>
         {selectedExercises.map((exercise: Exercise) => (
           <SelectedExerciseCard
             key={exercise.exerciseName}
             exercise={exercise}
+            simultaneousHandlers={scrollRef}
           />
         ))}
       </ScrollView>

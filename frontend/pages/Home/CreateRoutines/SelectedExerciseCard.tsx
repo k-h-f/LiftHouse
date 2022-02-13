@@ -4,6 +4,7 @@ import { useWindowDimensions, View } from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
+  PanGestureHandlerProps,
 } from 'react-native-gesture-handler';
 import { Text } from 'react-native-paper';
 import styles from './SelectedExerciseCard.style';
@@ -18,12 +19,14 @@ import { colors, sizes } from '../../../themeConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 
-interface SelectedExerciseCardProps {
+interface SelectedExerciseCardProps
+  extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
   exercise: Exercise;
 }
 
 const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
   exercise,
+  simultaneousHandlers,
 }) => {
   const translateX = useSharedValue(0);
   const { width } = useWindowDimensions();
@@ -80,7 +83,10 @@ const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
           size={sizes.iconSize}
         />
       </Animated.View>
-      <PanGestureHandler onGestureEvent={panGesture}>
+      <PanGestureHandler
+        simultaneousHandlers={simultaneousHandlers}
+        onGestureEvent={panGesture}
+      >
         <Animated.View style={[styles.card, cardAnimationStyle]}>
           <Text style={styles.text}>{exercise.exerciseName}</Text>
         </Animated.View>
