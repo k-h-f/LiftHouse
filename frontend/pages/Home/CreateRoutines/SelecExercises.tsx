@@ -101,9 +101,9 @@ const SelectExercises: React.FC = () => {
               onGestureEvent={panGesture}
             >
               <Animated.View style={[cardAnimationStyle]}>
-                {selectedExercises.map((exercise: Exercise, index) => (
+                {selectedExercises.map((exercise: Exercise) => (
                   <SelectedExerciseCard
-                    key={index}
+                    key={exercise.exerciseName}
                     exercise={exercise}
                     simultaneousHandlers={scrollRef}
                     enabled={enableSwipeGesture}

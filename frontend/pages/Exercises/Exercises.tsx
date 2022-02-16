@@ -33,8 +33,6 @@ const Execises: React.FC<ExecisesProps> = ({ exerciseToFilter }) => {
         ),
     );
 
-    console.log(filteredExercises);
-
     return filteredExercises
       .filter((exercise: Exercise) => exercise.type === exerciseType)
       .map((exercise: Exercise) => (
