@@ -91,12 +91,6 @@ const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
         enabled={enabled}
       >
         <Animated.View style={[styles.card, cardAnimationStyle]}>
-          {/* <MaterialCommunityIcons
-            style={{ display: enabled ? 'none' : 'flex' }}
-            name={'close'}
-            size={sizes.iconSize}
-            color={colors.white}
-          /> */}
           <Text style={styles.text}>{exercise.exerciseName}</Text>
         </Animated.View>
       </PanGestureHandler>

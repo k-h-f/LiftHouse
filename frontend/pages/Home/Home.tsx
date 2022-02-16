@@ -24,8 +24,9 @@ const Stack = createStackNavigator();
 const HomeView: React.FC = () => {
   const { data, isCompleted } = useDatabase(QueryAlias.GET_ROUTINES);
   const routines = data as Routine[];
-  const isFocused = useIsFocused();
   const { resetSelectedExercises } = useSelectedExercises();
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     resetSelectedExercises();
@@ -52,35 +53,40 @@ const HomeView: React.FC = () => {
   );
 };
 
-const Home: React.FC = () => (
-  <Stack.Navigator
-    screenOptions={{
-      title: '',
-      headerStyle: { backgroundColor: colors.primary },
-    }}
-  >
-    <Stack.Screen
-      options={{ headerShown: false }}
-      name="Home"
-      component={HomeView}
-    />
-    <Stack.Screen
-      options={{
-        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-        headerBackImage: () => (
-          <MaterialCommunityIcons
-            name={'close'}
-            size={sizes.iconSize}
-            color={colors.white}
-          />
-        ),
+const Home: React.FC = () => {
+  const { selectedExercises } = useSelectedExercises();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        title: '',
+        headerStyle: { backgroundColor: colors.primary },
       }}
-      name="CreateRoutine"
-      component={CreateRoutine}
-    />
-    <Stack.Screen name="SelectExercises" component={SelectExercises} />
-    <Stack.Screen name="Exercises" component={Exercises} />
-  </Stack.Navigator>
-);
+    >
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Home"
+        component={HomeView}
+      />
+      <Stack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+          headerBackImage: () => (
+            <MaterialCommunityIcons
+              name={'close'}
+              size={sizes.iconSize}
+              color={colors.white}
+            />
+          ),
+        }}
+        name="CreateRoutine"
+        component={CreateRoutine}
+      />
+      <Stack.Screen name="SelectExercises" component={SelectExercises} />
+      <Stack.Screen name="Exercises">
+        {props => <Exercises {...props} exerciseToFilter={selectedExercises} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+};
 
 export default Home;

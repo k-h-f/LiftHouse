@@ -27,12 +27,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <PaperProvider>
-        <NavigationContainer theme={HouseTheme}>
-          <StatusBar backgroundColor={colors.primary} />
-          <MenuProvider>
+        <StatusBar backgroundColor={colors.primary} />
+        <MenuProvider>
+          <NavigationContainer theme={HouseTheme}>
             <TabNavigation components={Pages} initialRouteName="Home" />
-          </MenuProvider>
-        </NavigationContainer>
+          </NavigationContainer>
+        </MenuProvider>
       </PaperProvider>
     </Provider>
   );

@@ -75,46 +75,46 @@ const SelectExercises: React.FC = () => {
   const loadRef = useRef(null);
 
   return (
-    <View style={PageStyle.wrapper}>
-      <View style={styles.header}>
-        <GlobalText style={styles.exercise_header} isCaption>
-          EXERCISES
-        </GlobalText>
-        <IconButton
-          onPress={() => switchToExercises()}
-          icon="plus"
-          size={sizes.iconSize}
-          color={colors.highlight}
-        />
-      </View>
-      <LongPressGestureHandler
-        ref={loadRef}
-        simultaneousHandlers={panRef}
-        onGestureEvent={longPressGesture}
-      >
-        <Animated.View>
-          <PanGestureHandler
-            ref={panRef}
-            maxPointers={1}
-            simultaneousHandlers={loadRef}
-            onGestureEvent={panGesture}
-          >
-            <Animated.View style={[cardAnimationStyle]}>
-              <ScrollView ref={scrollRef}>
-                {selectedExercises.map((exercise: Exercise) => (
+    <ScrollView ref={scrollRef}>
+      <View style={PageStyle.wrapper}>
+        <View style={styles.header}>
+          <GlobalText style={styles.exercise_header} isCaption>
+            EXERCISES
+          </GlobalText>
+          <IconButton
+            onPress={() => switchToExercises()}
+            icon="plus"
+            size={sizes.iconSize}
+            color={colors.highlight}
+          />
+        </View>
+        <LongPressGestureHandler
+          ref={loadRef}
+          simultaneousHandlers={panRef}
+          onGestureEvent={longPressGesture}
+        >
+          <Animated.View>
+            <PanGestureHandler
+              ref={panRef}
+              maxPointers={1}
+              simultaneousHandlers={loadRef}
+              onGestureEvent={panGesture}
+            >
+              <Animated.View style={[cardAnimationStyle]}>
+                {selectedExercises.map((exercise: Exercise, index) => (
                   <SelectedExerciseCard
-                    key={exercise.exerciseName}
+                    key={index}
                     exercise={exercise}
                     simultaneousHandlers={scrollRef}
                     enabled={enableSwipeGesture}
                   />
                 ))}
-              </ScrollView>
-            </Animated.View>
-          </PanGestureHandler>
-        </Animated.View>
-      </LongPressGestureHandler>
-    </View>
+              </Animated.View>
+            </PanGestureHandler>
+          </Animated.View>
+        </LongPressGestureHandler>
+      </View>
+    </ScrollView>
   );
 };
 

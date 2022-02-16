@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    height: '100%',
     backgroundColor: colors.card_gray,
     borderRadius: 6,
     flexDirection: 'row',

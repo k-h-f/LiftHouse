@@ -13,7 +13,11 @@ import { Exercise } from '../../../backend/dtos/Exercise';
 import ExerciseType from '../../../backend/types';
 import useSelectedExercises from './hooks/useSelectedExercises';
 
-const Execises: React.FC = () => {
+interface ExecisesProps {
+  exerciseToFilter: Exercise[];
+}
+
+const Execises: React.FC<ExecisesProps> = ({ exerciseToFilter }) => {
   const { data, isCompleted } = useDatabase(QueryAlias.GET_EXERCISES);
   const { onSelectExercise } = useSelectedExercises();
 
@@ -21,8 +25,17 @@ const Execises: React.FC = () => {
     onSelectExercise(exercise);
   };
 
-  const getExercises = (values: Exercise[], exerciseType: ExerciseType) =>
-    values
+  const getExercises = (values: Exercise[], exerciseType: ExerciseType) => {
+    const filteredExercises = values.filter(
+      exercise =>
+        !exerciseToFilter.some(
+          targetExercise => exercise.id === targetExercise.id,
+        ),
+    );
+
+    console.log(filteredExercises);
+
+    return filteredExercises
       .filter((exercise: Exercise) => exercise.type === exerciseType)
       .map((exercise: Exercise) => (
         <ExerciseCard
@@ -31,36 +44,39 @@ const Execises: React.FC = () => {
           onClick={onClick}
         />
       ));
+  };
 
   return (
-    <ScrollView style={PageStyle.wrapper}>
-      <TextInput
-        theme={searchBarTheme}
-        right={<TextInput.Icon name={'magnify'} color={colors.white} />}
-        mode={'outlined'}
-        selectionColor={colors.highlight}
-        outlineColor={colors.highlight}
-        // onChangeText={text => onChange && onChange(text)} //Since function is possibly undefined, check if it exists
-      />
-      <View>
-        {!isCompleted ? (
-          <ActivityIndicator />
-        ) : (
-          <>
-            <GlobalText style={styles.exercise_header} isCaption>
-              PUSH
-            </GlobalText>
-            {getExercises(data, ExerciseType.PUSH)}
-            <GlobalText style={styles.exercise_header} isCaption>
-              PULL
-            </GlobalText>
-            {getExercises(data, ExerciseType.PULL)}
-            <GlobalText style={styles.exercise_header} isCaption>
-              LEGS
-            </GlobalText>
-            {getExercises(data, ExerciseType.LEGS)}
-          </>
-        )}
+    <ScrollView>
+      <View style={PageStyle.wrapper}>
+        <TextInput
+          theme={searchBarTheme}
+          right={<TextInput.Icon name={'magnify'} color={colors.white} />}
+          mode={'outlined'}
+          selectionColor={colors.highlight}
+          outlineColor={colors.highlight}
+          // onChangeText={text => onChange && onChange(text)} //Since function is possibly undefined, check if it exists
+        />
+        <View>
+          {!isCompleted ? (
+            <ActivityIndicator />
+          ) : (
+            <>
+              <GlobalText style={styles.exercise_header} isCaption>
+                PUSH
+              </GlobalText>
+              {getExercises(data, ExerciseType.PUSH)}
+              <GlobalText style={styles.exercise_header} isCaption>
+                PULL
+              </GlobalText>
+              {getExercises(data, ExerciseType.PULL)}
+              <GlobalText style={styles.exercise_header} isCaption>
+                LEGS
+              </GlobalText>
+              {getExercises(data, ExerciseType.LEGS)}
+            </>
+          )}
+        </View>
       </View>
     </ScrollView>
   );
