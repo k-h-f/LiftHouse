@@ -29,7 +29,6 @@ const SelectExercises: React.FC = () => {
   const { selectedExercises, onRemoveExercise } = useSelectedExercises();
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
-  const [enableOrderGesture, setEnableOrderGesture] = useState(false);
   const translateY = useSharedValue(0);
 
   navigation.setOptions({ title: params?.routineName });
@@ -37,13 +36,6 @@ const SelectExercises: React.FC = () => {
   const switchToExercises = () => {
     navigation.navigate('Exercises');
   };
-
-  const orderCallback = useCallback(
-    (value: boolean) => {
-      setEnableOrderGesture(value);
-    },
-    [setEnableOrderGesture],
-  );
 
   const swipeCallback = useCallback(
     (value: boolean) => {
@@ -57,10 +49,6 @@ const SelectExercises: React.FC = () => {
       onActive: () => {
         console.log('activate');
         runOnJS(swipeCallback)(false);
-        runOnJS(orderCallback)(true);
-      },
-      onFinish: () => {
-        runOnJS(swipeCallback)(true);
       },
     });
 
@@ -70,7 +58,6 @@ const SelectExercises: React.FC = () => {
     },
     onEnd: () => {
       translateY.value = withTiming(0);
-      runOnJS(orderCallback)(false);
       runOnJS(swipeCallback)(true);
     },
   });
@@ -101,6 +88,7 @@ const SelectExercises: React.FC = () => {
         />
       </View>
       <LongPressGestureHandler
+        ref={loadRef}
         simultaneousHandlers={panRef}
         onGestureEvent={longPressGesture}
       >
@@ -108,8 +96,8 @@ const SelectExercises: React.FC = () => {
           <PanGestureHandler
             ref={panRef}
             maxPointers={1}
+            simultaneousHandlers={loadRef}
             onGestureEvent={panGesture}
-            enabled={enableOrderGesture}
           >
             <Animated.View style={[cardAnimationStyle]}>
               <ScrollView ref={scrollRef}>
@@ -117,7 +105,7 @@ const SelectExercises: React.FC = () => {
                   <SelectedExerciseCard
                     key={exercise.exerciseName}
                     exercise={exercise}
-                    simultaneousHandlers={[scrollRef, panRef]}
+                    simultaneousHandlers={scrollRef}
                     enabled={enableSwipeGesture}
                   />
                 ))}
