@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors, spacing } from '../../../themeConfig';
 
-const CARD_HEIGHT = 50;
+const CARD_HEIGHT = 60;
 
 const styles = StyleSheet.create({
   wrapper: {

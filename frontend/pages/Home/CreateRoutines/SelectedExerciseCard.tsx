@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Exercise } from '../../../../backend/dtos/Exercise';
 import { useWindowDimensions, View } from 'react-native';
 import {
@@ -23,25 +23,22 @@ interface SelectedExerciseCardProps
   extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
   exercise: Exercise;
   enabled: boolean;
+  onDismiss: (exerciseToRemove: Exercise) => void;
+  ref?: React.MutableRefObject<null>;
 }
 
 const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
   exercise,
   simultaneousHandlers,
   enabled,
+  onDismiss,
+  ref,
 }) => {
   const translateX = useSharedValue(0);
   const { width } = useWindowDimensions();
   const { onRemoveExercise } = useSelectedExercises();
 
   const TRANSLATE_X_THRESHOLD = -width * 0.3;
-
-  const onDismiss = useCallback(
-    exerciseToRemove => {
-      onRemoveExercise(exerciseToRemove);
-    },
-    [onRemoveExercise],
-  );
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
@@ -86,6 +83,7 @@ const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
         />
       </Animated.View>
       <PanGestureHandler
+        ref={ref}
         simultaneousHandlers={simultaneousHandlers}
         onGestureEvent={panGesture}
         enabled={enabled}

@@ -1,21 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Text, View } from 'react-native';
-import {
-  LongPressGestureHandler,
-  LongPressGestureHandlerGestureEvent,
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-  ScrollView,
-} from 'react-native-gesture-handler';
+import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import Animated, {
-  runOnJS,
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
 import { Exercise } from '../../../../backend/dtos/Exercise';
 import GlobalText from '../../../shared/components/GlobalText';
 import PageStyle from '../../../shared/stylesheets/pages.style';
@@ -23,13 +9,16 @@ import { colors, sizes } from '../../../themeConfig';
 import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 import styles from './SelecExercises.style';
 import SelectedExerciseCard from './SelectedExerciseCard';
+import DraggableFlatList from 'react-native-draggable-flatlist';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SelectExercises: React.FC = () => {
   const navigation = useNavigation();
   const { selectedExercises, onRemoveExercise } = useSelectedExercises();
+  const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
-  const translateY = useSharedValue(0);
+  const [scroll, setScroll] = useState(true);
 
   navigation.setOptions({ title: params?.routineName });
 
@@ -37,84 +26,89 @@ const SelectExercises: React.FC = () => {
     navigation.navigate('Exercises');
   };
 
-  const swipeCallback = useCallback(
-    (value: boolean) => {
-      setEnableSwipeGesture(value);
+  const cardRef = useRef(null);
+  const draggableRef = useRef(null);
+  const touchRef = useRef(null);
+
+  useEffect(() => {
+    selectedExercises
+      .filter(
+        selectedExercise =>
+          !exerciseList.some(target => selectedExercise.id === target.id),
+      )
+      .map((exercise: Exercise) => {
+        setExerciseList(oldList => oldList && [...oldList, exercise]);
+      });
+  }, [exerciseList, selectedExercises]);
+
+  const onDismiss = useCallback(
+    (exerciseToRemove: Exercise) => {
+      onRemoveExercise(exerciseToRemove);
+      setExerciseList(oldList =>
+        oldList.filter(exercise => exercise.id !== exerciseToRemove.id),
+      );
     },
-    [setEnableSwipeGesture],
+    [onRemoveExercise],
   );
 
-  const longPressGesture =
-    useAnimatedGestureHandler<LongPressGestureHandlerGestureEvent>({
-      onActive: () => {
-        console.log('activate');
-        runOnJS(swipeCallback)(false);
-      },
-    });
-
-  const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
-    onActive: event => {
-      translateY.value = event.translationY;
-    },
-    onEnd: () => {
-      translateY.value = withTiming(0);
-      runOnJS(swipeCallback)(true);
-    },
-  });
-
-  const cardAnimationStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: translateY.value,
-      },
-    ],
-  }));
-
-  const scrollRef = useRef(null);
-  const panRef = useRef(null);
-  const loadRef = useRef(null);
+  const renderItem = ({
+    item,
+    drag,
+  }: {
+    item: Exercise;
+    drag: (event: GestureResponderEvent) => void;
+  }) => (
+    <View>
+      <TouchableOpacity
+        delayPressIn={100}
+        delayLongPress={100}
+        onLongPress={drag}
+        ref={touchRef}
+      >
+        <SelectedExerciseCard
+          ref={cardRef}
+          key={item.exerciseName}
+          exercise={item}
+          simultaneousHandlers={[touchRef, draggableRef]}
+          enabled={enableSwipeGesture}
+          onDismiss={onDismiss}
+        />
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
-    <ScrollView ref={scrollRef}>
-      <View style={PageStyle.wrapper}>
-        <View style={styles.header}>
-          <GlobalText style={styles.exercise_header} isCaption>
-            EXERCISES
-          </GlobalText>
-          <IconButton
-            onPress={() => switchToExercises()}
-            icon="plus"
-            size={sizes.iconSize}
-            color={colors.highlight}
-          />
-        </View>
-        <LongPressGestureHandler
-          ref={loadRef}
-          simultaneousHandlers={panRef}
-          onGestureEvent={longPressGesture}
-        >
-          <Animated.View>
-            <PanGestureHandler
-              ref={panRef}
-              maxPointers={1}
-              simultaneousHandlers={loadRef}
-              onGestureEvent={panGesture}
-            >
-              <Animated.View style={[cardAnimationStyle]}>
-                {selectedExercises.map((exercise: Exercise) => (
-                  <SelectedExerciseCard
-                    key={exercise.exerciseName}
-                    exercise={exercise}
-                    simultaneousHandlers={scrollRef}
-                    enabled={enableSwipeGesture}
-                  />
-                ))}
-              </Animated.View>
-            </PanGestureHandler>
-          </Animated.View>
-        </LongPressGestureHandler>
+    // <ScrollView ref={scrollRef} scrollEnabled={scroll}>
+    <View style={PageStyle.wrapper}>
+      <View style={styles.header}>
+        <GlobalText style={styles.exercise_header} isCaption>
+          EXERCISES
+        </GlobalText>
+        <IconButton
+          onPress={() => switchToExercises()}
+          icon="plus"
+          size={sizes.iconSize}
+          color={colors.highlight}
+        />
       </View>
-    </ScrollView>
+      <View>
+        <DraggableFlatList
+          data={exerciseList}
+          ref={draggableRef}
+          simultaneousHandlers={[cardRef, touchRef]}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          onDragBegin={() => {
+            setEnableSwipeGesture(false);
+          }}
+          onDragEnd={({ data }) => {
+            setEnableSwipeGesture(true);
+            setExerciseList(data);
+          }}
+        />
+      </View>
+    </View>
+    // </ScrollView>
   );
 };
 
