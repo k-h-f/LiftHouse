@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { Exercise } from '../../../../backend/dtos/Exercise';
@@ -10,7 +10,6 @@ import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 import styles from './SelecExercises.style';
 import SelectedExerciseCard from './SelectedExerciseCard';
 import DraggableFlatList from 'react-native-draggable-flatlist';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const SelectExercises: React.FC = () => {
   const navigation = useNavigation();
@@ -18,17 +17,12 @@ const SelectExercises: React.FC = () => {
   const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
-  const [scroll, setScroll] = useState(true);
 
   navigation.setOptions({ title: params?.routineName });
 
   const switchToExercises = () => {
     navigation.navigate('Exercises');
   };
-
-  const cardRef = useRef(null);
-  const draggableRef = useRef(null);
-  const touchRef = useRef(null);
 
   useEffect(() => {
     selectedExercises
@@ -63,13 +57,10 @@ const SelectExercises: React.FC = () => {
         delayPressIn={100}
         delayLongPress={100}
         onLongPress={drag}
-        ref={touchRef}
       >
         <SelectedExerciseCard
-          ref={cardRef}
           key={item.exerciseName}
           exercise={item}
-          simultaneousHandlers={[touchRef, draggableRef]}
           enabled={enableSwipeGesture}
           onDismiss={onDismiss}
         />
@@ -78,7 +69,6 @@ const SelectExercises: React.FC = () => {
   );
 
   return (
-    // <ScrollView ref={scrollRef} scrollEnabled={scroll}>
     <View style={PageStyle.wrapper}>
       <View style={styles.header}>
         <GlobalText style={styles.exercise_header} isCaption>
@@ -91,11 +81,9 @@ const SelectExercises: React.FC = () => {
           color={colors.highlight}
         />
       </View>
-      <View>
+      <View style={{ height: '90%' }}>
         <DraggableFlatList
           data={exerciseList}
-          ref={draggableRef}
-          simultaneousHandlers={[cardRef, touchRef]}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           onDragBegin={() => {
@@ -108,7 +96,6 @@ const SelectExercises: React.FC = () => {
         />
       </View>
     </View>
-    // </ScrollView>
   );
 };
 
