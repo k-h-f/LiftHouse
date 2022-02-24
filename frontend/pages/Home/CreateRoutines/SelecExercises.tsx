@@ -81,7 +81,7 @@ const SelectExercises: React.FC = () => {
           color={colors.highlight}
         />
       </View>
-      <View style={{ height: '90%' }}>
+      <View style={{ height: '95%' }}>
         <DraggableFlatList
           data={exerciseList}
           renderItem={renderItem}

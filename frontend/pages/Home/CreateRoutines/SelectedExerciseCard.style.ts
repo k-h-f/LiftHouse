@@ -10,15 +10,12 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: colors.card_gray,
-    borderRadius: 6,
     flexDirection: 'row',
   },
 
   text: {
     color: colors.textPrimary,
     fontWeight: 'bold',
-    marginVertical: 14,
     marginLeft: spacing.standard,
   },
 

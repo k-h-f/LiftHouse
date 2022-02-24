@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { spacing } from '../../themeConfig';
+import { colors, spacing } from '../../themeConfig';
 
 const styles = StyleSheet.create({
   wrapper: {
