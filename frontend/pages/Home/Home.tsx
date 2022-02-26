@@ -54,7 +54,6 @@ const HomeView: React.FC = () => {
 };
 
 const Home: React.FC = () => {
-  const { selectedExercises } = useSelectedExercises();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -82,9 +81,7 @@ const Home: React.FC = () => {
         component={CreateRoutine}
       />
       <Stack.Screen name="SelectExercises" component={SelectExercises} />
-      <Stack.Screen name="Exercises">
-        {props => <Exercises {...props} exerciseToFilter={selectedExercises} />}
-      </Stack.Screen>
+      <Stack.Screen name="Exercises" component={Exercises} />
     </Stack.Navigator>
   );
 };

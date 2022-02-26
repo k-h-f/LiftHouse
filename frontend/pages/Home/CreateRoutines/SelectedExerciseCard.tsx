@@ -17,7 +17,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { colors, sizes } from '../../../themeConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 
 interface SelectedExerciseCardProps
   extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
@@ -34,7 +33,6 @@ const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
 }) => {
   const translateX = useSharedValue(0);
   const { width } = useWindowDimensions();
-  const { onRemoveExercise } = useSelectedExercises();
 
   const TRANSLATE_X_THRESHOLD = -width * 0.3;
 

@@ -17,13 +17,21 @@ const SelectExercises: React.FC = () => {
   const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
+  const [routineName, setRoutineName] = useState<string>(null);
 
-  navigation.setOptions({ title: params?.routineName });
+  //Need to store the routine name as a state in order to avoid losing when navigating
+  useEffect(() => {
+    setRoutineName(params?.routineName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  navigation.setOptions({ title: routineName });
 
   const switchToExercises = () => {
     navigation.navigate('Exercises');
   };
 
+  //updates the selected exercises without duplication
   useEffect(() => {
     selectedExercises
       .filter(

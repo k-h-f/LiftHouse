@@ -12,7 +12,12 @@ const styles = StyleSheet.create({
   exercise_text: {
     color: colors.textPrimary,
     marginLeft: spacing.standard,
+    fontWeight: 'bold',
+  },
 
+  exercise_text_highlighted: {
+    color: colors.highlight,
+    marginLeft: spacing.standard,
     fontWeight: 'bold',
   },
 });
