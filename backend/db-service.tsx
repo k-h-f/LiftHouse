@@ -3,6 +3,7 @@ import {
   openDatabase,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
+import { QueryArgs } from '../frontend/utils/hooks/useDatabase';
 import exercisesJson from './exercises.json';
 import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
 import QueryAlias from './queryAlias';
@@ -85,8 +86,8 @@ const createTables = async (db: SQLiteDatabase) => {
  * @returns Return a promise with any type since there are many different types of responses
  *          This means you have to cast the response type wherever you call the useDatabase hook
  */
-export const execute = (queryAlias: QueryAlias): Promise<any> => {
-  const result = handler.handle(queryAlias);
+export const execute = (queryAlias: QueryAlias, queryArgs?: QueryArgs): Promise<any> => {
+  const result = handler.handle(queryAlias, queryArgs);
   return result;
 };
 

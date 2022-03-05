@@ -10,6 +10,11 @@ import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 import styles from './SelectExercises.style';
 import SelectedExerciseCard from './SelectedExerciseCard';
 import DraggableFlatList from 'react-native-draggable-flatlist';
+import useDatabase, {
+  ExerciseIdWithOrder,
+  InsertIntoRoutines,
+} from '../../../utils/hooks/useDatabase';
+import QueryAlias from '../../../../backend/queryAlias';
 
 const SelectExercises: React.FC = () => {
   const navigation = useNavigation();
@@ -18,6 +23,7 @@ const SelectExercises: React.FC = () => {
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
   const [routineName, setRoutineName] = useState<string>('');
+  const { isCompleted, executeQuery } = useDatabase();
 
   //Need to store the routine name as a state in order to avoid losing when navigating
   useEffect(() => {
@@ -34,7 +40,15 @@ const SelectExercises: React.FC = () => {
   const hasSelected = selectedExercises.length === 0 ? false : true;
 
   const saveRoutine = () => {
-    //TODO
+    const exercisesIdsWithOrder: ExerciseIdWithOrder[] = selectedExercises.map(
+      (exercise, index) => {
+        return { id: exercise.id, order: index };
+      },
+    );
+
+    executeQuery(QueryAlias.INSERT_ROUTINE, {
+      args: { routineName, exercisesIdsWithOrder } as InsertIntoRoutines,
+    });
   };
 
   //updates the selected exercises without duplication

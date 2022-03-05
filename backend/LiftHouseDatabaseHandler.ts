@@ -2,12 +2,18 @@ import { SQLiteDatabase } from 'react-native-sqlite-storage';
 import QueryAlias from './queryAlias';
 import { Exercise } from './dtos/Exercise';
 import { Routine } from './dtos/Routine';
+import { QueryArgs } from '../frontend/utils/hooks/useDatabase';
 
 class LiftHouseDatabaseHandler {
   private db: Promise<SQLiteDatabase>;
 
   constructor(db: Promise<SQLiteDatabase>) {
     this.db = db;
+  }
+
+  insertIntoRoutines(queryArgs: QueryArgs): Promise<boolean> {
+    //TODO
+    return new Promise((resolve, reject) => resolve(true));
   }
 
   getExercises(): Promise<Exercise[]> {
@@ -71,12 +77,14 @@ class LiftHouseDatabaseHandler {
     );
   }
 
-  handle(queryAlias: QueryAlias) {
+  handle(queryAlias: QueryAlias, queryArgs: QueryArgs | undefined) {
     switch (queryAlias) {
       case QueryAlias.GET_ROUTINES:
         return this.getRoutines();
       case QueryAlias.GET_EXERCISES:
         return this.getExercises();
+      case QueryAlias.INSERT_ROUTINE:
+        return queryArgs && this.insertIntoRoutines(queryArgs);
       default:
         throw Error('Query alias not found');
     }

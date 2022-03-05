@@ -22,9 +22,13 @@ import useSelectedExercises from '../Exercises/hooks/useSelectedExercises';
 const Stack = createStackNavigator();
 
 const HomeView: React.FC = () => {
-  const { data, isCompleted } = useDatabase(QueryAlias.GET_ROUTINES);
+  const { data, isCompleted, executeQuery } = useDatabase();
   const routines = data as Routine[];
   const { resetSelectedExercises } = useSelectedExercises();
+
+  useEffect(() => {
+    executeQuery(QueryAlias.GET_ROUTINES);
+  }, []);
 
   const isFocused = useIsFocused();
 

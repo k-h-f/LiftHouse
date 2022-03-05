@@ -2,29 +2,51 @@ import { useEffect, useState } from 'react';
 import { execute } from '../../../backend/db-service';
 import QueryAlias from '../../../backend/queryAlias';
 
+export interface ExerciseIdWithOrder {
+  id: number,
+  order: number
+}
+
+export interface InsertIntoRoutines{
+  routineName: string;
+  exercisesIdsWithOrder: ExerciseIdWithOrder[];
+}
+
+export interface QueryArgs {
+  args: InsertIntoRoutines;
+}
+
 /**
  *
  * @param query You can think of this has a function to call a specific query
  *              e.g. GET_ROUTINES is a alias to fetch all of the routines
  *              for the user
  */
-const useDatabase = (query: QueryAlias) => {
+const useDatabase = () => {
   //Have to use the any type here since there are many different responses
   const [data, setData] = useState<any>();
   const [isCompleted, setCompleted] = useState<boolean>(false);
+  const [query, setQuery] = useState<QueryAlias>();
+  const [queryArgs, setQueryArgs] = useState<QueryArgs>();
+
+  const executeQuery = (query: QueryAlias, args?: QueryArgs) => {
+    setQuery(query);
+    setQueryArgs(args);
+  }
 
   useEffect(() => {
     setCompleted(false);
+    if (query !== undefined) {
+      const resultSet = execute(query, queryArgs);
 
-    const resultSet = execute(query);
-
-    resultSet.then(result => {
-      setData(result);
-      setCompleted(true);
-    });
+      resultSet.then(result => {
+        setData(result);
+        setCompleted(true);
+      });
+    }
   }, [query]);
 
-  return { data, isCompleted };
+  return { data, isCompleted, executeQuery };
 };
 
 export default useDatabase;

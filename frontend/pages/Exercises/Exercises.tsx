@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { ActivityIndicator, TextInput, FAB } from 'react-native-paper';
 import QueryAlias from '../../../backend/queryAlias';
@@ -12,8 +12,12 @@ import ExerciseType from '../../../backend/types';
 import styles, { searchBarTheme } from './Exercises.style';
 
 const Execises: React.FC = () => {
-  const { data, isCompleted } = useDatabase(QueryAlias.GET_EXERCISES);
+  const { data, isCompleted, executeQuery } = useDatabase();
   const [save, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    executeQuery(QueryAlias.GET_EXERCISES);
+  }, []);
 
   const getExercises = (values: Exercise[], exerciseType: ExerciseType) =>
     values
