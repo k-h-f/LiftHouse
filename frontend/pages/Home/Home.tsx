@@ -14,7 +14,7 @@ import styles from './Home.style';
 import { colors, sizes } from '../../themeConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CreateRoutine from './CreateRoutines/CreateRoutine';
-import SelectExercises from './CreateRoutines/SelecExercises';
+import SelectExercises from './CreateRoutines/SelectExercises';
 import Exercises from '../Exercises/Exercises';
 import { useIsFocused } from '@react-navigation/native';
 import useSelectedExercises from '../Exercises/hooks/useSelectedExercises';

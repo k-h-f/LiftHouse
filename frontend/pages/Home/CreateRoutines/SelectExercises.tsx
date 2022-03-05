@@ -7,7 +7,7 @@ import GlobalText from '../../../shared/components/GlobalText';
 import PageStyle from '../../../shared/stylesheets/pages.style';
 import { colors, sizes } from '../../../themeConfig';
 import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
-import styles from './SelecExercises.style';
+import styles from './SelectExercises.style';
 import SelectedExerciseCard from './SelectedExerciseCard';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 
@@ -17,7 +17,7 @@ const SelectExercises: React.FC = () => {
   const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
-  const [routineName, setRoutineName] = useState<string>(null);
+  const [routineName, setRoutineName] = useState<string>('');
 
   //Need to store the routine name as a state in order to avoid losing when navigating
   useEffect(() => {
