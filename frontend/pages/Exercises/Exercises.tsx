@@ -17,6 +17,8 @@ const Execises: React.FC = () => {
 
   useEffect(() => {
     executeQuery(QueryAlias.GET_EXERCISES);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getExercises = (values: Exercise[], exerciseType: ExerciseType) =>

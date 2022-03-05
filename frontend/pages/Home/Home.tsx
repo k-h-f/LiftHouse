@@ -28,6 +28,8 @@ const HomeView: React.FC = () => {
 
   useEffect(() => {
     executeQuery(QueryAlias.GET_ROUTINES);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isFocused = useIsFocused();

@@ -86,7 +86,10 @@ const createTables = async (db: SQLiteDatabase) => {
  * @returns Return a promise with any type since there are many different types of responses
  *          This means you have to cast the response type wherever you call the useDatabase hook
  */
-export const execute = (queryAlias: QueryAlias, queryArgs?: QueryArgs): Promise<any> => {
+export const execute = (
+  queryAlias: QueryAlias,
+  queryArgs?: QueryArgs,
+): Promise<any> => {
   const result = handler.handle(queryAlias, queryArgs);
   return result;
 };

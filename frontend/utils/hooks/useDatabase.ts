@@ -3,11 +3,11 @@ import { execute } from '../../../backend/db-service';
 import QueryAlias from '../../../backend/queryAlias';
 
 export interface ExerciseIdWithOrder {
-  id: number,
-  order: number
+  id: number;
+  order: number;
 }
 
-export interface InsertIntoRoutines{
+export interface InsertIntoRoutines {
   routineName: string;
   exercisesIdsWithOrder: ExerciseIdWithOrder[];
 }
@@ -29,10 +29,10 @@ const useDatabase = () => {
   const [query, setQuery] = useState<QueryAlias>();
   const [queryArgs, setQueryArgs] = useState<QueryArgs>();
 
-  const executeQuery = (query: QueryAlias, args?: QueryArgs) => {
-    setQuery(query);
+  const executeQuery = (requestedQuery: QueryAlias, args?: QueryArgs) => {
+    setQuery(requestedQuery);
     setQueryArgs(args);
-  }
+  };
 
   useEffect(() => {
     setCompleted(false);
@@ -44,7 +44,7 @@ const useDatabase = () => {
         setCompleted(true);
       });
     }
-  }, [query]);
+  }, [query, queryArgs]);
 
   return { data, isCompleted, executeQuery };
 };

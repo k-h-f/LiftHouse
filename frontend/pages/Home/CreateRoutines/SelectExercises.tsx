@@ -23,7 +23,7 @@ const SelectExercises: React.FC = () => {
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
   const [routineName, setRoutineName] = useState<string>('');
-  const { isCompleted, executeQuery } = useDatabase();
+  const { executeQuery } = useDatabase();
 
   //Need to store the routine name as a state in order to avoid losing when navigating
   useEffect(() => {
