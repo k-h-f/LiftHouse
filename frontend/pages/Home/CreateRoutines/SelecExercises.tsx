@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
-import { IconButton } from 'react-native-paper';
+import { FAB, IconButton, Portal } from 'react-native-paper';
 import { Exercise } from '../../../../backend/dtos/Exercise';
 import GlobalText from '../../../shared/components/GlobalText';
 import PageStyle from '../../../shared/stylesheets/pages.style';
@@ -29,6 +29,10 @@ const SelectExercises: React.FC = () => {
 
   const switchToExercises = () => {
     navigation.navigate('Exercises');
+  };
+
+  const saveRoutine = () => {
+    //TODO
   };
 
   //updates the selected exercises without duplication
@@ -89,6 +93,13 @@ const SelectExercises: React.FC = () => {
           color={colors.highlight}
         />
       </View>
+      <Portal>
+        <FAB
+          icon="content-save"
+          style={styles.fab}
+          onPress={() => saveRoutine()}
+        />
+      </Portal>
       <View style={{ height: '95%' }}>
         <DraggableFlatList
           data={exerciseList}
