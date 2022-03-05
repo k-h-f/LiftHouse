@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: colors.highlight,
     marginRight: spacing.standard,
-    marginBottom: 64,
     bottom: 0,
     right: 0,
   },

@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import {
-  ActivityIndicator,
-  TextInput,
-  FAB,
-  Portal,
-} from 'react-native-paper';
+import { ActivityIndicator, TextInput, FAB } from 'react-native-paper';
 import QueryAlias from '../../../backend/queryAlias';
 import GlobalText from '../../shared/components/GlobalText';
 import PageStyle from '../../shared/stylesheets/pages.style';
@@ -32,44 +27,42 @@ const Execises: React.FC = () => {
       ));
 
   return (
-    <ScrollView>
-      <View style={PageStyle.wrapper}>
-        <Portal>
-          <FAB
-            icon="plus"
-            style={styles.fab}
-            onPress={() => setIsSaved(!save)}
+    <View>
+      <ScrollView>
+        <View style={PageStyle.wrapper}>
+          <TextInput
+            theme={searchBarTheme}
+            right={<TextInput.Icon name={'magnify'} color={colors.white} />}
+            mode={'outlined'}
+            selectionColor={colors.highlight}
+            outlineColor={colors.highlight}
           />
-        </Portal>
-        <TextInput
-          theme={searchBarTheme}
-          right={<TextInput.Icon name={'magnify'} color={colors.white} />}
-          mode={'outlined'}
-          selectionColor={colors.highlight}
-          outlineColor={colors.highlight}
-        />
-        <View>
-          {!isCompleted ? (
-            <ActivityIndicator />
-          ) : (
-            <>
-              <GlobalText style={styles.exercise_header} isCaption>
-                PUSH
-              </GlobalText>
-              {getExercises(data, ExerciseType.PUSH)}
-              <GlobalText style={styles.exercise_header} isCaption>
-                PULL
-              </GlobalText>
-              {getExercises(data, ExerciseType.PULL)}
-              <GlobalText style={styles.exercise_header} isCaption>
-                LEGS
-              </GlobalText>
-              {getExercises(data, ExerciseType.LEGS)}
-            </>
-          )}
+          <View>
+            {!isCompleted ? (
+              <ActivityIndicator />
+            ) : (
+              <>
+                <GlobalText style={styles.exercise_header} isCaption>
+                  PUSH
+                </GlobalText>
+                {getExercises(data, ExerciseType.PUSH)}
+                <GlobalText style={styles.exercise_header} isCaption>
+                  PULL
+                </GlobalText>
+                {getExercises(data, ExerciseType.PULL)}
+                <GlobalText style={styles.exercise_header} isCaption>
+                  LEGS
+                </GlobalText>
+                {getExercises(data, ExerciseType.LEGS)}
+              </>
+            )}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      {isCompleted && (
+        <FAB icon="plus" style={styles.fab} onPress={() => setIsSaved(!save)} />
+      )}
+    </View>
   );
 };
 
