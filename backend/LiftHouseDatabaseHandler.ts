@@ -2,7 +2,7 @@ import { SQLiteDatabase } from 'react-native-sqlite-storage';
 import QueryAlias from './queryAlias';
 import { Exercise } from './dtos/Exercise';
 import { Routine } from './dtos/Routine';
-import { QueryArgs } from '../frontend/utils/hooks/useDatabase';
+import { QueryArgs } from './types';
 
 class LiftHouseDatabaseHandler {
   private db: Promise<SQLiteDatabase>;
@@ -13,6 +13,7 @@ class LiftHouseDatabaseHandler {
 
   insertIntoRoutines(queryArgs: QueryArgs): Promise<boolean> {
     //TODO
+    console.log(queryArgs);
     return new Promise((resolve, reject) => resolve(true));
   }
 

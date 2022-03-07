@@ -1,20 +1,8 @@
 import { useEffect, useState } from 'react';
 import { execute } from '../../../backend/db-service';
 import QueryAlias from '../../../backend/queryAlias';
+import { QueryArgs } from '../../../backend/types';
 
-export interface ExerciseIdWithOrder {
-  id: number;
-  order: number;
-}
-
-export interface InsertIntoRoutines {
-  routineName: string;
-  exercisesIdsWithOrder: ExerciseIdWithOrder[];
-}
-
-export interface QueryArgs {
-  args: InsertIntoRoutines;
-}
 
 /**
  *

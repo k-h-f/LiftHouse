@@ -10,11 +10,9 @@ import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 import styles from './SelectExercises.style';
 import SelectedExerciseCard from './SelectedExerciseCard';
 import DraggableFlatList from 'react-native-draggable-flatlist';
-import useDatabase, {
-  ExerciseIdWithOrder,
-  InsertIntoRoutines,
-} from '../../../utils/hooks/useDatabase';
 import QueryAlias from '../../../../backend/queryAlias';
+import { ExerciseIdWithOrder, InsertIntoRoutines } from '../../../../backend/types';
+import useDatabase from '../../../utils/hooks/useDatabase';
 
 const SelectExercises: React.FC = () => {
   const navigation = useNavigation();

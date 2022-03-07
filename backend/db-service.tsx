@@ -3,11 +3,10 @@ import {
   openDatabase,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
-import { QueryArgs } from '../frontend/utils/hooks/useDatabase';
 import exercisesJson from './exercises.json';
 import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
 import QueryAlias from './queryAlias';
-import ExerciseType from './types';
+import ExerciseType, { QueryArgs } from './types';
 
 enablePromise(true);
 
