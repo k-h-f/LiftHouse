@@ -6,7 +6,7 @@ import {
 import exercisesJson from './exercises.json';
 import LiftHouseDatabaseHandler from './LiftHouseDatabaseHandler';
 import QueryAlias from './queryAlias';
-import ExerciseType, { QueryArgs } from './types';
+import { ExerciseType, QueryArgs } from './types';
 
 enablePromise(true);
 
@@ -61,8 +61,12 @@ const populateExercises = (db: SQLiteDatabase) => {
  */
 const createTables = async (db: SQLiteDatabase) => {
   const dropExercises = 'DROP TABLE IF EXISTS exercises;';
+  const dropRoutines = 'DROP TABLE IF EXISTS routines;';
+  const dropRoutineToExercises = 'DROP TABLE IF EXISTS routineToExercises;';
 
   db.executeSql(dropExercises);
+  db.executeSql(dropRoutines);
+  db.executeSql(dropRoutineToExercises);
 
   const exercises =
     'CREATE TABLE IF NOT EXISTS exercises (exerciseId INTEGER PRIMARY KEY, type TEXT NOT NULL, exerciseName TEXT NOT NULL);';

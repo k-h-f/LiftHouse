@@ -1,4 +1,11 @@
-enum ExerciseType {
+export enum TableName {
+  routines = 'routines',
+  exercises = 'exercises',
+  routineToExercises = 'routineToExercises',
+  entries = 'entries',
+}
+
+export enum ExerciseType {
   PULL = 'PULL',
   PUSH = 'PUSH',
   LEGS = 'LEGS',
@@ -17,5 +24,3 @@ export interface InsertIntoRoutines {
 export interface QueryArgs {
   args: InsertIntoRoutines;
 }
-
-export default ExerciseType;

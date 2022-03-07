@@ -38,7 +38,7 @@ const SelectExercises: React.FC = () => {
   const hasSelected = selectedExercises.length === 0 ? false : true;
 
   const saveRoutine = () => {
-    const exercisesIdsWithOrder: ExerciseIdWithOrder[] = selectedExercises.map(
+    const exercisesIdsWithOrder: ExerciseIdWithOrder[] = exerciseList.map(
       (exercise, index) => {
         return { id: exercise.id, order: index };
       },

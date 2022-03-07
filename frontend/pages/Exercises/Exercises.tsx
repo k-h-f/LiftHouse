@@ -8,8 +8,8 @@ import { colors } from '../../themeConfig';
 import useDatabase from '../../utils/hooks/useDatabase';
 import ExerciseCard from './ExerciseCard';
 import { Exercise } from '../../../backend/dtos/Exercise';
-import ExerciseType from '../../../backend/types';
 import styles, { searchBarTheme } from './Exercises.style';
+import { ExerciseType } from '../../../backend/types';
 
 const Execises: React.FC = () => {
   const { data, isCompleted, executeQuery } = useDatabase();

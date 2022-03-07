@@ -2,7 +2,7 @@ import { SQLiteDatabase } from 'react-native-sqlite-storage';
 import QueryAlias from './queryAlias';
 import { Exercise } from './dtos/Exercise';
 import { Routine } from './dtos/Routine';
-import { QueryArgs } from './types';
+import { InsertIntoRoutines, QueryArgs, TableName } from './types';
 
 class LiftHouseDatabaseHandler {
   private db: Promise<SQLiteDatabase>;
@@ -12,9 +12,32 @@ class LiftHouseDatabaseHandler {
   }
 
   insertIntoRoutines(queryArgs: QueryArgs): Promise<boolean> {
+    const { args }: { args: InsertIntoRoutines } = queryArgs;
     //TODO
-    console.log(queryArgs);
-    return new Promise((resolve, reject) => resolve(true));
+    const insertIntoRoutinesQuery = `INSERT INTO ${TableName.routines} (routineName) VALUES ('${args.routineName}')`;
+
+    return new Promise((resolve, reject) =>
+      this.db.then(connection => {
+        connection.transaction(tx => {
+          tx.executeSql(insertIntoRoutinesQuery, [], (asd, resultSet) => {
+            const insertIntoRoutineToExercises = `INSERT INTO ${
+              TableName.routineToExercises
+            } (routineId, exerciseId, sortingOrder) VALUES ${args.exercisesIdsWithOrder.map(
+              exercise =>
+                `(${resultSet.insertId}, ${exercise.id}, ${exercise.order})`,
+            )}`;
+
+            tx.executeSql(
+              insertIntoRoutineToExercises,
+              [],
+              (asd1, resultSet2) => {
+                console.log(asd1, resultSet2);
+              },
+            );
+          });
+        });
+      }),
+    );
   }
 
   getExercises(): Promise<Exercise[]> {

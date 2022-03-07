@@ -3,7 +3,6 @@ import { execute } from '../../../backend/db-service';
 import QueryAlias from '../../../backend/queryAlias';
 import { QueryArgs } from '../../../backend/types';
 
-
 /**
  *
  * @param query You can think of this has a function to call a specific query
