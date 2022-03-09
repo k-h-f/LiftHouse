@@ -21,14 +21,18 @@ import useSelectedExercises from '../Exercises/hooks/useSelectedExercises';
 
 const Stack = createStackNavigator();
 
+interface DatabaseHookType {
+  data: Routine[];
+  isCompleted: boolean;
+  executeQuery: (requestedQuery: QueryAlias) => void;
+}
+
 const HomeView: React.FC = () => {
-  const { data, isCompleted, executeQuery } = useDatabase();
-  const routines = data as Routine[];
+  const { data, isCompleted, executeQuery }: DatabaseHookType = useDatabase();
   const { resetSelectedExercises } = useSelectedExercises();
 
   useEffect(() => {
     executeQuery(QueryAlias.GET_ROUTINES);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,10 +40,11 @@ const HomeView: React.FC = () => {
 
   useEffect(() => {
     resetSelectedExercises();
+    executeQuery(QueryAlias.GET_ROUTINES);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
-  const hasRoutines = isCompleted === true && routines.length !== 0;
+  const hasRoutines = isCompleted === true && data.length !== 0;
   return (
     <View style={PageStyle.wrapper}>
       <View style={styles.header_wrapper}>
@@ -69,7 +74,7 @@ const Home: React.FC = () => {
     >
       <Stack.Screen
         options={{ headerShown: false }}
-        name="Home"
+        name="Home1"
         component={HomeView}
       />
       <Stack.Screen

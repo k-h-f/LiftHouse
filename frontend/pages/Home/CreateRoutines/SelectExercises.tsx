@@ -11,7 +11,10 @@ import styles from './SelectExercises.style';
 import SelectedExerciseCard from './SelectedExerciseCard';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import QueryAlias from '../../../../backend/queryAlias';
-import { ExerciseIdWithOrder, InsertIntoRoutines } from '../../../../backend/types';
+import {
+  ExerciseIdWithOrder,
+  InsertIntoRoutines,
+} from '../../../../backend/types';
 import useDatabase from '../../../utils/hooks/useDatabase';
 
 const SelectExercises: React.FC = () => {
@@ -21,7 +24,7 @@ const SelectExercises: React.FC = () => {
   const { params } = useRoute();
   const [enableSwipeGesture, setEnableSwipeGesture] = useState(true);
   const [routineName, setRoutineName] = useState<string>('');
-  const { executeQuery } = useDatabase();
+  const { isCompleted, executeQuery } = useDatabase();
 
   //Need to store the routine name as a state in order to avoid losing when navigating
   useEffect(() => {
@@ -36,6 +39,12 @@ const SelectExercises: React.FC = () => {
   };
 
   const hasSelected = selectedExercises.length === 0 ? false : true;
+
+  useEffect(() => {
+    if (isCompleted) {
+      navigation.navigate('Home1');
+    }
+  }, [isCompleted, navigation]);
 
   const saveRoutine = () => {
     const exercisesIdsWithOrder: ExerciseIdWithOrder[] = exerciseList.map(

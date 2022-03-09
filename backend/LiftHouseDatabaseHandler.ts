@@ -13,28 +13,33 @@ class LiftHouseDatabaseHandler {
 
   insertIntoRoutines(queryArgs: QueryArgs): Promise<boolean> {
     const { args }: { args: InsertIntoRoutines } = queryArgs;
-    //TODO
     const insertIntoRoutinesQuery = `INSERT INTO ${TableName.routines} (routineName) VALUES ('${args.routineName}')`;
 
     return new Promise((resolve, reject) =>
       this.db.then(connection => {
         connection.transaction(tx => {
-          tx.executeSql(insertIntoRoutinesQuery, [], (asd, resultSet) => {
-            const insertIntoRoutineToExercises = `INSERT INTO ${
-              TableName.routineToExercises
-            } (routineId, exerciseId, sortingOrder) VALUES ${args.exercisesIdsWithOrder.map(
-              exercise =>
-                `(${resultSet.insertId}, ${exercise.id}, ${exercise.order})`,
-            )}`;
+          tx.executeSql(
+            insertIntoRoutinesQuery,
+            [],
+            (tsxRoutine, routinesResultSet) => {
+              const insertIntoRoutineToExercises = `INSERT INTO ${
+                TableName.routineToExercises
+              } (routineId, exerciseId, sortingOrder) VALUES ${args.exercisesIdsWithOrder.map(
+                exercise =>
+                  `(${routinesResultSet.insertId}, ${exercise.id}, ${exercise.order})`,
+              )}`;
 
-            tx.executeSql(
-              insertIntoRoutineToExercises,
-              [],
-              (asd1, resultSet2) => {
-                console.log(asd1, resultSet2);
-              },
-            );
-          });
+              tx.executeSql(
+                insertIntoRoutineToExercises,
+                [],
+                () => {
+                  resolve(true);
+                },
+                (tsxRoutineToExercises, error) => reject(error),
+              );
+            },
+            (tsx, error) => reject(error),
+          );
         });
       }),
     );
@@ -49,7 +54,7 @@ class LiftHouseDatabaseHandler {
           tx.executeSql(
             getRoutinesQuery,
             [],
-            (asd, resultSet) => {
+            (tsx, resultSet) => {
               let data: Exercise[] = [];
               for (let i = 0; i < resultSet.rows.length; i++) {
                 data = [
@@ -80,7 +85,7 @@ class LiftHouseDatabaseHandler {
           tx.executeSql(
             getRoutinesQuery,
             [],
-            (asd, resultSet) => {
+            (tsx, resultSet) => {
               let data: Routine[] = [];
               for (let i = 0; i < resultSet.rows.length; i++) {
                 data = [
@@ -108,7 +113,9 @@ class LiftHouseDatabaseHandler {
       case QueryAlias.GET_EXERCISES:
         return this.getExercises();
       case QueryAlias.INSERT_ROUTINE:
-        return queryArgs && this.insertIntoRoutines(queryArgs);
+        return queryArgs
+          ? this.insertIntoRoutines(queryArgs)
+          : new Promise(reject => reject('No Query params given'));
       default:
         throw Error('Query alias not found');
     }
