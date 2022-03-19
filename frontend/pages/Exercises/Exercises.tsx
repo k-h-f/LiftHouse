@@ -9,11 +9,29 @@ import useDatabase from '../../utils/hooks/useDatabase';
 import ExerciseCard from './ExerciseCard';
 import { Exercise } from '../../../backend/dtos/Exercise';
 import styles, { searchBarTheme } from './Exercises.style';
-import { ExerciseType } from '../../../backend/types';
+import { ExerciseType, QueryArgs } from '../../../backend/types';
 
 const Execises: React.FC = () => {
-  const { data, isCompleted, executeQuery } = useDatabase();
+  const {
+    data,
+    isCompleted,
+    executeQuery,
+  }: {
+    data: Exercise[];
+    isCompleted: boolean;
+    executeQuery: (
+      requestedQuery: QueryAlias,
+      args?: QueryArgs | undefined,
+    ) => void;
+  } = useDatabase();
   const [save, setIsSaved] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredExercises =
+    data &&
+    data.filter(exercise =>
+      exercise.exerciseName.toLowerCase().match(searchQuery.toLowerCase()),
+    );
 
   useEffect(() => {
     executeQuery(QueryAlias.GET_EXERCISES);
@@ -42,6 +60,7 @@ const Execises: React.FC = () => {
             mode={'outlined'}
             selectionColor={colors.highlight}
             outlineColor={colors.highlight}
+            onChangeText={text => setSearchQuery(text)}
           />
           <View>
             {!isCompleted ? (
@@ -51,15 +70,15 @@ const Execises: React.FC = () => {
                 <GlobalText style={styles.exercise_header} isCaption>
                   PUSH
                 </GlobalText>
-                {getExercises(data, ExerciseType.PUSH)}
+                {getExercises(filteredExercises, ExerciseType.PUSH)}
                 <GlobalText style={styles.exercise_header} isCaption>
                   PULL
                 </GlobalText>
-                {getExercises(data, ExerciseType.PULL)}
+                {getExercises(filteredExercises, ExerciseType.PULL)}
                 <GlobalText style={styles.exercise_header} isCaption>
                   LEGS
                 </GlobalText>
-                {getExercises(data, ExerciseType.LEGS)}
+                {getExercises(filteredExercises, ExerciseType.LEGS)}
               </>
             )}
           </View>
