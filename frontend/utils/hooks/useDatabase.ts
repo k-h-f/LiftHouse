@@ -5,7 +5,7 @@ import { QueryArgs } from '../../../backend/types';
 
 /**
  *
- * @param requestedQuery You can think of this has a function to call a specific query
+ * @param query You can think of this has a function to call a specific query
  *              e.g. GET_ROUTINES is a alias to fetch all of the routines
  *              for the user
  */
@@ -14,8 +14,8 @@ const useDatabase = () => {
   const [data, setData] = useState<any>();
   const [isCompleted, setCompleted] = useState<boolean>(false);
 
-  const executeQuery = (requestedQuery: QueryAlias, args?: QueryArgs) => {
-    const resultSet = execute(requestedQuery, args);
+  const executeQuery = (query: QueryAlias, args?: QueryArgs) => {
+    const resultSet = execute(query, args);
 
     resultSet.then(result => {
       setData(result);

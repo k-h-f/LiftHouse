@@ -63,7 +63,6 @@ const createTables = async (db: SQLiteDatabase) => {
   const dropExercises = 'DROP TABLE IF EXISTS exercises;';
 
   db.executeSql(dropExercises);
-
   const exercises =
     'CREATE TABLE IF NOT EXISTS exercises (exerciseId INTEGER PRIMARY KEY, type TEXT NOT NULL, exerciseName TEXT NOT NULL);';
   const routines =
