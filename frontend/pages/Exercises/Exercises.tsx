@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import { ActivityIndicator, TextInput, FAB } from 'react-native-paper';
+import { ActivityIndicator, TextInput } from 'react-native-paper';
 import QueryAlias from '../../../backend/queryAlias';
 import GlobalText from '../../shared/components/GlobalText';
 import PageStyle from '../../shared/stylesheets/pages.style';
@@ -10,6 +10,7 @@ import ExerciseCard from './ExerciseCard';
 import { Exercise } from '../../../backend/dtos/Exercise';
 import styles, { searchBarTheme } from './Exercises.style';
 import { ExerciseType, QueryArgs } from '../../../backend/types';
+import FloatingActionButton from '../../shared/components/FloatingActionButton';
 
 const Execises: React.FC = () => {
   const {
@@ -85,7 +86,11 @@ const Execises: React.FC = () => {
         </View>
       </ScrollView>
       {isCompleted && (
-        <FAB icon="plus" style={styles.fab} onPress={() => setIsSaved(!save)} />
+        <FloatingActionButton
+          icon="plus"
+          style={styles.fab}
+          onPress={() => setIsSaved(!save)}
+        />
       )}
     </View>
   );

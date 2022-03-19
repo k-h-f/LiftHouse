@@ -16,11 +16,7 @@ const styles = StyleSheet.create({
   },
 
   fab: {
-    position: 'absolute',
-    backgroundColor: colors.highlight,
-    marginRight: spacing.standard,
     bottom: 0,
-    right: 0,
   },
 });
 export default styles;

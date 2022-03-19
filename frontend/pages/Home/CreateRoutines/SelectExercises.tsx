@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
-import { FAB, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import { Exercise } from '../../../../backend/dtos/Exercise';
 import GlobalText from '../../../shared/components/GlobalText';
 import PageStyle from '../../../shared/stylesheets/pages.style';
@@ -16,6 +16,7 @@ import {
   InsertIntoRoutines,
 } from '../../../../backend/types';
 import useDatabase from '../../../utils/hooks/useDatabase';
+import FloatingActionButton from '../../../shared/components/FloatingActionButton';
 
 const SelectExercises: React.FC = () => {
   const navigation = useNavigation();
@@ -117,13 +118,12 @@ const SelectExercises: React.FC = () => {
         />
       </View>
       {hasSelected && (
-        <FAB
+        <FloatingActionButton
           icon="content-save"
-          style={styles.fab}
           onPress={() => saveRoutine()}
         />
       )}
-      <View style={{ height: '95%' }}>
+      <View style={styles.wrapper}>
         <DraggableFlatList
           data={exerciseList}
           renderItem={renderItem}
