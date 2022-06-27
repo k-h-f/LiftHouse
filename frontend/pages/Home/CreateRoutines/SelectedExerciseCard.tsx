@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Exercise } from '../../../../backend/dtos/Exercise';
 import { useWindowDimensions, View } from 'react-native';
 import {
@@ -17,29 +17,24 @@ import Animated, {
 } from 'react-native-reanimated';
 import { colors, sizes } from '../../../themeConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import useSelectedExercises from '../../Exercises/hooks/useSelectedExercises';
 
 interface SelectedExerciseCardProps
   extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
   exercise: Exercise;
+  enabled: boolean;
+  onDismiss: (exerciseToRemove: Exercise) => void;
 }
 
 const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
   exercise,
   simultaneousHandlers,
+  enabled,
+  onDismiss,
 }) => {
   const translateX = useSharedValue(0);
   const { width } = useWindowDimensions();
-  const { onRemoveExercise } = useSelectedExercises();
 
   const TRANSLATE_X_THRESHOLD = -width * 0.3;
-
-  const onDismiss = useCallback(
-    exerciseToRemove => {
-      onRemoveExercise(exerciseToRemove);
-    },
-    [onRemoveExercise],
-  );
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
@@ -86,6 +81,7 @@ const SelectedExerciseCard: React.FC<SelectedExerciseCardProps> = ({
       <PanGestureHandler
         simultaneousHandlers={simultaneousHandlers}
         onGestureEvent={panGesture}
+        enabled={enabled}
       >
         <Animated.View style={[styles.card, cardAnimationStyle]}>
           <Text style={styles.text}>{exercise.exerciseName}</Text>

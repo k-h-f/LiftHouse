@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { execute } from '../../../backend/db-service';
 import QueryAlias from '../../../backend/queryAlias';
+import { QueryArgs } from '../../../backend/types';
 
 /**
  *
@@ -8,23 +9,21 @@ import QueryAlias from '../../../backend/queryAlias';
  *              e.g. GET_ROUTINES is a alias to fetch all of the routines
  *              for the user
  */
-const useDatabase = (query: QueryAlias) => {
+const useDatabase = () => {
   //Have to use the any type here since there are many different responses
   const [data, setData] = useState<any>();
   const [isCompleted, setCompleted] = useState<boolean>(false);
 
-  useEffect(() => {
-    setCompleted(false);
-
-    const resultSet = execute(query);
+  const executeQuery = (query: QueryAlias, args?: QueryArgs) => {
+    const resultSet = execute(query, args);
 
     resultSet.then(result => {
       setData(result);
       setCompleted(true);
     });
-  }, [query]);
+  };
 
-  return { data, isCompleted };
+  return { data, isCompleted, executeQuery };
 };
 
 export default useDatabase;

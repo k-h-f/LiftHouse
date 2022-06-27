@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { spacing } from '../../../themeConfig';
 
 const styles = StyleSheet.create({
+  wrapper: {
+    height: '95%',
+  },
+
   header: {
     display: 'flex',
     flexDirection: 'row',

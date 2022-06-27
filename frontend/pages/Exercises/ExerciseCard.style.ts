@@ -3,7 +3,6 @@ import { colors, spacing } from '../../themeConfig';
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: colors.card,
     height: 48,
     marginTop: spacing.standard,
     justifyContent: 'center',
@@ -12,7 +11,13 @@ const styles = StyleSheet.create({
 
   exercise_text: {
     color: colors.textPrimary,
-    textAlign: 'center',
+    marginLeft: spacing.standard,
+    fontWeight: 'bold',
+  },
+
+  exercise_text_highlighted: {
+    color: colors.highlight,
+    marginLeft: spacing.standard,
     fontWeight: 'bold',
   },
 });

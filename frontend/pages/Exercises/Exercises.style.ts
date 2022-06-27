@@ -1,5 +1,6 @@
+import { StyleSheet } from 'react-native';
 import { DarkTheme } from 'react-native-paper';
-import { colors } from '../../themeConfig';
+import { colors, spacing } from '../../themeConfig';
 
 export const searchBarTheme = {
   ...DarkTheme,
@@ -8,4 +9,14 @@ export const searchBarTheme = {
     background: colors.primary,
   },
 };
-export default searchBarTheme;
+
+const styles = StyleSheet.create({
+  exercise_header: {
+    marginTop: spacing.standard,
+  },
+
+  fab: {
+    bottom: 0,
+  },
+});
+export default styles;

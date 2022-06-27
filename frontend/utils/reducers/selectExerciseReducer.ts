@@ -26,7 +26,7 @@ export const selectExercuseReducer = (state = initialState, action: any) => {
     case RESET_SELECTED_EXERCISES:
       return {
         ...state,
-        exercises: [],
+        exercises: [] as Exercise[],
       };
     default:
       return state;
