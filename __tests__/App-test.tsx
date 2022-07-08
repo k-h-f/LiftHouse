@@ -1,9 +1,8 @@
-import 'react-native';
-import React from 'react';
-import App from '../App';
-
 import { fireEvent, render } from '@testing-library/react-native';
+import React from 'react';
+import 'react-native';
 import { Text } from 'react-native';
+import App from '../App';
 
 const homeComponent: React.FC = () => <Text>This is the homepage</Text>;
 

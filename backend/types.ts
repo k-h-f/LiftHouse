@@ -6,21 +6,13 @@ export enum TableName {
 }
 
 export enum ExerciseType {
-  PULL = 'PULL',
-  PUSH = 'PUSH',
-  LEGS = 'LEGS',
+  UPPER_INTENSITY = 'UPPER_INTENSITY',
+  UPPER_VOLUME = 'UPPER_VOLUME',
+  LOWER_INTENSITY = 'LOWER_INTENSITY',
+  LOWER_VOLUME = 'LOWER_VOLUME',
 }
 
-export interface ExerciseIdWithOrder {
-  id: number;
-  order: number;
-}
-
-export interface InsertIntoRoutines {
-  routineName: string;
-  exercisesIdsWithOrder: ExerciseIdWithOrder[];
-}
-
-export interface QueryArgs {
-  args: InsertIntoRoutines;
+export interface Exercise {
+  type: ExerciseType;
+  name: string;
 }

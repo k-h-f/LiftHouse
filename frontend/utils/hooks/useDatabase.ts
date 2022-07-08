@@ -1,21 +1,19 @@
 import { useState } from 'react';
+import { Query } from '../../../backend/LiftHouseDatabase';
 import { execute } from '../../../backend/db-service';
-import QueryAlias from '../../../backend/queryAlias';
-import { QueryArgs } from '../../../backend/types';
 
 /**
  *
- * @param query You can think of this has a function to call a specific query
- *              e.g. GET_ROUTINES is a alias to fetch all of the routines
- *              for the user
+ * @param query This is an alias to execute a specific query
+ *              e.g. GET_EXERCISES_BY_TYPE is a alias to fetch all of the exercises by type
+ *
  */
 const useDatabase = () => {
-  //Have to use the any type here since there are many different responses
   const [data, setData] = useState<any>();
   const [isCompleted, setCompleted] = useState<boolean>(false);
 
-  const executeQuery = (query: QueryAlias, args?: QueryArgs) => {
-    const resultSet = execute(query, args);
+  const executeQuery = (query: Query) => {
+    const resultSet = execute(query);
 
     resultSet.then(result => {
       setData(result);

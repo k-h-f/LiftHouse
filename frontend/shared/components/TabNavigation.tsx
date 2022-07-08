@@ -1,12 +1,16 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from 'react';
-import { colors, sizes } from '../../themeConfig';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Routes } from '../../../App';
+import { colors, sizes } from '../themeConfig';
+import style from './TabNavigation.style';
 
 const Tab = createMaterialBottomTabNavigator();
 
 /**
  * Interface to define what information is needed to render for the bottom navigation bar
+ * @param reactComponent React component that will be rendered
+ * @param name Name of the page e.g. Home
  * @param icon This is a string which identifies the icon you want.
  *             Go to https://materialdesignicons.com/ to see the options
  */
@@ -17,11 +21,12 @@ export interface ComponentDefinition {
 }
 
 /**
- * @param initialRouteName The name of the route to render on first load of the navigator.
+ * @param components Components that will be mapped to Tabs in order
+ * @param initialRouteName Sets the default/initial page based on a route
  */
 interface TabNavigationProps {
   components: ComponentDefinition[];
-  initialRouteName?: string;
+  initialRouteName?: Routes;
 }
 
 const TabNavigation: React.FC<TabNavigationProps> = ({
@@ -30,9 +35,9 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
 }) => {
   return (
     <Tab.Navigator
-      activeColor={colors.highlight}
-      barStyle={{ backgroundColor: colors.primary }}
       initialRouteName={initialRouteName}
+      barStyle={style.barStyle}
+      labeled={false}
     >
       {components.map(component => (
         <Tab.Screen
@@ -41,12 +46,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
           component={component.reactComponent}
           options={{
             tabBarTestID: `${component.name}_tab`,
-            tabBarLabel: component.name,
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
                 testID={`${component.name}_icon`}
                 name={component.icon ?? ''}
-                color={focused ? colors.highlight : colors.unfocused}
+                color={focused ? colors.focused : colors.unfocused}
                 size={sizes.iconSize}
               />
             ),
