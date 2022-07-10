@@ -15,10 +15,11 @@ const Home: React.FC = () => {
       <Text style={HouseStyle.H1}>Time to grind</Text>
       <Text style={HouseStyle.H2}>Today Session</Text>
       <Card
-        size={CardSize.large}
+        size={CardSize.small}
         text="Lower Day"
         source={CardImages.lower_intensity}
       />
+      <Text style={HouseStyle.H2}>Other Routines</Text>
     </View>
   );
 };

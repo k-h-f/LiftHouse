@@ -52,6 +52,7 @@ export const HouseStyle = StyleSheet.create({
     fontSize: fontSizes.h2,
     color: fontColors.primary,
     paddingBottom: spacing.standard,
+    paddingTop: spacing.standard,
     fontWeight: 'bold',
   },
 });

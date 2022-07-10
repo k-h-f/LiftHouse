@@ -4,9 +4,15 @@ import { CardSize } from './Card';
 
 const style = (size?: CardSize) => {
   return StyleSheet.create({
+    CardWrapper: {
+      height: size === CardSize.large ? '50%' : '35%',
+      width: size === CardSize.large ? '100%' : '50%',
+      marginTop: spacing.small,
+      marginBottom: spacing.small,
+    },
+
     Card: {
-      height: size === CardSize.large ? '70%' : '60%',
-      width: size === CardSize.large ? '100%' : '75%',
+      height: '100%',
     },
 
     TextWrapper: {
