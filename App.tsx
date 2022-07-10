@@ -1,8 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import Home from './frontend/pages/Home';
+import Home from './frontend/pages/Home/Home';
 import TabNavigation, {
   ComponentDefinition,
 } from './frontend/shared/components/TabNavigation';

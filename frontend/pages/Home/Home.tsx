@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { HouseStyle } from '../shared/themeConfig';
+import { HouseStyle } from '../../shared/themeConfig';
 import style from './Home.style';
 import Card, { CardSize } from './components/Card/Card';
 import CardImages from './components/Card/CardImages/uri';

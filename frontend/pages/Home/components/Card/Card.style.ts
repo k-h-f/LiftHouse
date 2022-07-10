@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { fontColors, fontSizes, spacing } from '../../../shared/themeConfig';
+import { fontColors, fontSizes, spacing } from '../../../../shared/themeConfig';
 import { CardSize } from './Card';
 
 const style = (size?: CardSize) => {
